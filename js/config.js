@@ -6,11 +6,19 @@ const CONFIG = {
     SUPABASE_URL: 'https://qvzccihanhyyjxmuaccw.supabase.co',
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emNjaWhhbmh5eWp4bXVhY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNDMwMTksImV4cCI6MjA5MDkxOTAxOX0.4y86LqjdLpamsvNmMwE1kXGddMWcLvGBfzwW6GqGkho',
 
-    // --- URL base del sitio (auto-detectada) ---
-    // GitHub Pages → /tienda-ropa/  |  VPS o servidor local → /
+    // --- URL base del sitio (auto-detectada según el entorno) ---
     SITE_BASE: (function() {
+        // GitHub Pages → necesita el subdirectorio del repositorio
         if (window.location.hostname === 'jcsteveb17.github.io') return '/tienda-ropa/';
-        return '/'; // VPS con dominio propio o servidor local
+        // Archivo local (doble clic en .html) → rutas relativas
+        if (window.location.protocol === 'file:') {
+            var path = window.location.pathname.replace(/\\/g, '/');
+            var subPages = ['shop','about','contact','cart','product','categories','outfit','admin'];
+            var isSubPage = subPages.some(function(p){ return path.indexOf('/'+p+'/')>=0; });
+            return isSubPage ? '../' : './';
+        }
+        // Servidor HTTP: local con iniciar-local.bat o VPS con dominio → raíz
+        return '/';
     })(),
 
     // --- WhatsApp (ver SETUP.md sección 2) ---
