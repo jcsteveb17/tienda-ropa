@@ -63,12 +63,12 @@ function updateCartBadge() {
  */
 function getNavHTML(activePage = '') {
     const links = [
-        { id: 'inicio',     label: 'Inicio',     href: '/'              },
-        { id: 'tienda',     label: 'Tienda',      href: '/shop/'         },
-        { id: 'outfit',     label: 'Arma tu Conjunto', href: '/outfit/'  },
-        { id: 'categorias', label: 'Categorías',  href: '/categories/'   },
-        { id: 'nosotros',   label: 'Nosotros',    href: '/about/'        },
-        { id: 'contacto',   label: 'Contacto',    href: '/contact/'      },
+        { id: 'inicio',     label: 'Inicio',          href: CONFIG.SITE_BASE              },
+        { id: 'tienda',     label: 'Tienda',           href: CONFIG.SITE_BASE + 'shop/'   },
+        { id: 'outfit',     label: 'Arma tu Conjunto', href: CONFIG.SITE_BASE + 'outfit/' },
+        { id: 'categorias', label: 'Categorías',       href: CONFIG.SITE_BASE + 'categories/' },
+        { id: 'nosotros',   label: 'Nosotros',         href: CONFIG.SITE_BASE + 'about/'  },
+        { id: 'contacto',   label: 'Contacto',         href: CONFIG.SITE_BASE + 'contact/'},
     ];
 
     const navLinks = links.map(link => {
@@ -83,7 +83,7 @@ function getNavHTML(activePage = '') {
     <header class="bg-white/80 backdrop-blur-xl sticky top-0 w-full z-50 shadow-sm">
       <nav class="flex justify-between items-center px-6 py-4 max-w-screen-2xl mx-auto">
         <!-- Logo -->
-        <a href="/" class="text-2xl font-black tracking-tighter text-zinc-900 font-headline no-underline"
+        <a href="${CONFIG.SITE_BASE}" class="text-2xl font-black tracking-tighter text-zinc-900 font-headline no-underline"
            id="nav-store-name">${CONFIG.STORE_NAME}</a>
 
         <!-- Desktop Links -->
@@ -99,7 +99,7 @@ function getNavHTML(activePage = '') {
           </button>
 
           <!-- Cart -->
-          <a href="/cart/" class="cart-btn-wrapper hover:opacity-70 transition-opacity" aria-label="Carrito">
+          <a href="${CONFIG.SITE_BASE}cart/" class="cart-btn-wrapper hover:opacity-70 transition-opacity" aria-label="Carrito">
             <span class="material-symbols-outlined text-zinc-900">shopping_bag</span>
             <span class="cart-badge-count hidden" id="cart-count-badge">0</span>
           </a>
@@ -172,9 +172,9 @@ function getFooterHTML() {
         <div class="space-y-6">
           <h4 class="font-headline font-black text-xs uppercase tracking-widest text-zinc-900">Tienda</h4>
           <ul class="space-y-3 font-body text-sm">
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/shop/">Todas las Piezas</a></li>
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/shop/">Nuevas Llegadas</a></li>
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/categories/">Categorías</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}shop/">Todas las Piezas</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}shop/">Nuevas Llegadas</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}categories/">Categorías</a></li>
           </ul>
         </div>
 
@@ -182,9 +182,9 @@ function getFooterHTML() {
         <div class="space-y-6">
           <h4 class="font-headline font-black text-xs uppercase tracking-widest text-zinc-900">Soporte</h4>
           <ul class="space-y-3 font-body text-sm">
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/contact/">Contacto</a></li>
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/about/">Sobre Nosotros</a></li>
-            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="/about/">Reporte de Sostenibilidad</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}contact/">Contacto</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}about/">Sobre Nosotros</a></li>
+            <li><a class="text-zinc-500 hover:text-[#4e6300] transition-colors" href="${CONFIG.SITE_BASE}about/">Reporte de Sostenibilidad</a></li>
           </ul>
         </div>
 
@@ -257,7 +257,7 @@ function _initSearch() {
     // Enter → ir a la tienda con búsqueda
     input?.addEventListener('keydown', e => {
         if (e.key === 'Enter' && input.value.trim()) {
-            window.location.href = `/shop/?search=${encodeURIComponent(input.value.trim())}`;
+            window.location.href = `${CONFIG.SITE_BASE}shop/?search=${encodeURIComponent(input.value.trim())}`;
         }
         if (e.key === 'Escape') overlay.classList.remove('open');
     });

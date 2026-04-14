@@ -54,7 +54,7 @@ function createProductCard(product) {
     } else if (inCart) {
         hoverBtn = `
         <div class="absolute bottom-0 left-0 w-full p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-            <a href="/cart/"
+            <a href="${CONFIG.SITE_BASE}cart/"
                class="w-full py-3 bg-secondary-fixed text-on-secondary-fixed font-headline text-xs font-bold uppercase tracking-widest flex items-center justify-center transition-colors">
                 Ver Carrito
             </a>
@@ -65,7 +65,7 @@ function createProductCard(product) {
 
     return `
     <div class="${wrapperClass}">
-        <a href="/product/?id=${product.id}" class="block">
+        <a href="${CONFIG.SITE_BASE}product/?id=${product.id}" class="block">
             <div class="relative aspect-[3/4] overflow-hidden bg-surface-container-low mb-4">
                 ${statusOverlay}
                 ${conditionBadge}

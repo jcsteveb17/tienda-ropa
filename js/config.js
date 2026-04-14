@@ -3,8 +3,12 @@
 
 const CONFIG = {
     // --- Supabase (ver SETUP.md sección 1) ---
-    SUPABASE_URL: 'https://qvzccihanhyyjxmuaccw.supabase.co',  // ← Cambiar (ver SETUP.md)
-    SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emNjaWhhbmh5eWp4bXVhY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNDMwMTksImV4cCI6MjA5MDkxOTAxOX0.4y86LqjdLpamsvNmMwE1kXGddMWcLvGBfzwW6GqGkho',                // ← Cambiar (ver SETUP.md)
+    SUPABASE_URL: 'https://qvzccihanhyyjxmuaccw.supabase.co',
+    SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emNjaWhhbmh5eWp4bXVhY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNDMwMTksImV4cCI6MjA5MDkxOTAxOX0.4y86LqjdLpamsvNmMwE1kXGddMWcLvGBfzwW6GqGkho',
+
+    // --- URL base del sitio (terminar con /) ---
+    // GitHub Pages: '/tienda-ropa/'   |   VPS con dominio propio: '/'
+    SITE_BASE: '/tienda-ropa/',
 
     // --- WhatsApp (ver SETUP.md sección 2) ---
     WHATSAPP_PHONE: '593996109482',                        // ← Cambiar (ver SETUP.md)
