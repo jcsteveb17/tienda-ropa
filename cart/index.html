@@ -7,7 +7,7 @@
 <meta name="description" content="Tu carrito de compras. Revisa tus piezas seleccionadas y compra por WhatsApp."/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
+<link href="../css/styles.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -28,7 +28,7 @@
         <span class="material-symbols-outlined block" style="font-size:5rem;color:#acadad;margin-bottom:1.5rem">shopping_bag</span>
         <h2 class="text-2xl font-headline font-black uppercase tracking-tight mb-3">Tu carrito está vacío</h2>
         <p class="text-on-surface-variant font-body mb-8 max-w-md mx-auto">Todavía no has agregado ninguna pieza. Explora nuestra colección y encuentra algo que te inspire.</p>
-        <a href="shop.html"
+        <a href="../shop/"
             class="inline-flex items-center gap-3 px-10 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-widest hover:bg-secondary transition-colors">
             Explorar Tienda <span class="material-symbols-outlined">arrow_right_alt</span>
         </a>
@@ -50,7 +50,7 @@
                         class="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant underline underline-offset-4 hover:text-error transition-colors">
                         Vaciar Carrito
                     </button>
-                    <a href="shop.html"
+                    <a href="../shop/"
                         class="font-headline text-xs font-bold uppercase tracking-widest text-secondary underline underline-offset-4 hover:text-secondary-dim transition-colors">
                         Seguir Comprando
                     </a>
@@ -94,13 +94,12 @@
 
 <div id="footer-container"></div>
 
-<script src="js/config.js"></script>
-<script src="js/tailwind-config.js"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/products.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/whatsapp.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/whatsapp.js"></script>
+<script src="../js/app.js"></script>
 <script>
 document.getElementById('nav-container').innerHTML    = getNavHTML('');
 document.getElementById('footer-container').innerHTML = getFooterHTML();
@@ -111,7 +110,7 @@ function createCartItemRow(item) {
     const price = parseFloat(item.price).toFixed(2);
     return `
     <div class="cart-item-row" id="cart-row-${item.id}">
-        <a href="product.html?id=${item.id}">
+        <a href="../product/index.html?id=${item.id}">
             <img
                 class="cart-item-thumb"
                 src="${item.image_url || CONFIG.FALLBACK_IMAGE}"
@@ -120,7 +119,7 @@ function createCartItemRow(item) {
             />
         </a>
         <div>
-            <a href="product.html?id=${item.id}" class="block">
+            <a href="../product/index.html?id=${item.id}" class="block">
                 <h3 class="font-headline font-bold text-sm uppercase tracking-tight hover:text-secondary transition-colors">${item.name}</h3>
             </a>
             <p class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mt-1">

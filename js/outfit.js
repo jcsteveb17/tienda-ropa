@@ -231,7 +231,7 @@ document.getElementById('btn-add-outfit')?.addEventListener('click', async () =>
         _saveOutfitState();
 
         setTimeout(() => {
-           window.location.href = 'cart.html';
+           window.location.href = '/cart/';
         }, 800);
 
     } catch (e) {

@@ -7,7 +7,7 @@
 <meta name="description" content="Detalle de producto. Moda de segunda mano curada."/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
+<link href="../css/styles.css" rel="stylesheet"/>
 <style>
 .editorial-shadow { box-shadow: 0px 24px 48px rgba(45,47,47,0.06); }
 </style>
@@ -22,9 +22,9 @@
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-10">
-        <a href="index.html" class="hover:text-secondary transition-colors">Inicio</a>
+        <a href="../" class="hover:text-secondary transition-colors">Inicio</a>
         <span class="material-symbols-outlined text-sm">chevron_right</span>
-        <a href="shop.html" class="hover:text-secondary transition-colors">Tienda</a>
+        <a href="../shop/" class="hover:text-secondary transition-colors">Tienda</a>
         <span class="material-symbols-outlined text-sm">chevron_right</span>
         <span id="breadcrumb-name" class="text-on-surface truncate max-w-[200px]">...</span>
     </nav>
@@ -122,7 +122,7 @@
         <span class="material-symbols-outlined text-6xl text-outline-variant mb-4 block">search_off</span>
         <h2 class="text-3xl font-headline font-black uppercase tracking-tighter mb-4">Producto no encontrado</h2>
         <p class="text-on-surface-variant font-body mb-8">Esta pieza ya no está disponible o el enlace no es válido.</p>
-        <a href="shop.html" class="inline-flex items-center gap-3 px-10 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-widest hover:bg-secondary transition-colors">
+        <a href="../shop/" class="inline-flex items-center gap-3 px-10 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-widest hover:bg-secondary transition-colors">
             Ver Todas las Piezas <span class="material-symbols-outlined">arrow_right_alt</span>
         </a>
     </div>
@@ -134,7 +134,7 @@
                 <p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">Selección Para Ti</p>
                 <h2 class="text-3xl font-headline font-black tracking-tighter uppercase">Piezas Relacionadas</h2>
             </div>
-            <a href="shop.html" class="font-label text-xs font-bold uppercase underline underline-offset-8 decoration-2 decoration-secondary hover:text-secondary transition-colors">
+            <a href="../shop/" class="font-label text-xs font-bold uppercase underline underline-offset-8 decoration-2 decoration-secondary hover:text-secondary transition-colors">
                 Ver Todo
             </a>
         </div>
@@ -145,13 +145,12 @@
 
 <div id="footer-container"></div>
 
-<script src="js/config.js"></script>
-<script src="js/tailwind-config.js"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/products.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/whatsapp.js"></script>
-<script src="js/app.js"></script>
+<script src="../js/config.js"></script>
+<script src="../js/supabase-client.js"></script>
+<script src="../js/products.js"></script>
+<script src="../js/cart.js"></script>
+<script src="../js/whatsapp.js"></script>
+<script src="../js/app.js"></script>
 <script>
 document.getElementById('nav-container').innerHTML    = getNavHTML('tienda');
 document.getElementById('footer-container').innerHTML = getFooterHTML();
@@ -242,7 +241,7 @@ async function loadProduct() {
     if (product.status === 'available') {
         if (alreadyInCart) {
             ctaSection.innerHTML = `
-            <a href="cart.html"
+            <a href="../cart/"
                class="w-full py-6 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:scale-[1.01] transition-transform">
                <span>Ver Carrito</span>
                <span class="material-symbols-outlined text-lg">shopping_bag</span>

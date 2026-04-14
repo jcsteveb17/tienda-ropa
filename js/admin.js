@@ -50,7 +50,7 @@ function handleAdminLogin(e) {
 
 function handleAdminLogout() {
     sessionStorage.removeItem(ADMIN_SESSION_KEY);
-    window.location.href = 'index.html';
+    window.location.href = '/';
 }
 
 /* =====================================================
