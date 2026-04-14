@@ -1,269 +1,288 @@
 ﻿<!DOCTYPE html>
 <html class="scroll-smooth" lang="es">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>ARCHIVE "” Moda de Segunda Mano | Tienda</title>
-<meta name="description" content="Descubre piezas únicas de moda de archivo. Ropa vintage de segunda mano curada con estilo. Compra de forma sostenible."/>
-<meta property="og:title" content="ARCHIVE "” Moda de Segunda Mano"/>
-<meta property="og:description" content="Ropa vintage y de archivo curada. Compra de forma sostenible."/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="css/styles.css" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ARCHIVE — Moda de Segunda Mano | Tienda</title>
+    <meta name="description"
+        content="Descubre piezas únicas de moda de archivo. Ropa vintage de segunda mano curada con estilo. Compra de forma sostenible." />
+    <meta property="og:title" content="ARCHIVE — Moda de Segunda Mano" />
+    <meta property="og:description" content="Ropa vintage y de archivo curada. Compra de forma sostenible." />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link href="css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 
-<!-- Nav (injected) -->
-<div id="nav-container"></div>
+    <!-- Nav (injected) -->
+    <div id="nav-container"></div>
 
-<main>
+    <main>
 
-<!-- ===== HERO SECTION ===== -->
-<section class="relative h-[921px] w-full overflow-hidden flex items-center px-6 md:px-12">
-    <div class="absolute inset-0 z-0">
-        <img
-            alt="Fotografía editorial de moda urbana de segunda mano"
-            class="w-full h-full object-cover"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuClU7Xw0gPKbF24HQywnJGyb6ByS4Aqq3CLaXy1FI8g9cBXuhHmKKWMwWaypLS_H-kv9EmtaNpr1pE7Ik3Z-6lOGP1tFjUc4NlYIhMcji4SjGTf0kPpT3Mrm3qozAlfQPwpeiS2rYETGeH7_Dzu__g82vm7oxEbLhpTTKMGPAwpt9u4bOiXtICgl06mUAFcPSelVEoUqQCx3a69sJ7DtHHRA8tvhn2gUqLGaFDT4EuhuU07eiDIEiVBd2-SbBjYzwlcqMdSxdsOlVG3"
-        />
-        <div class="absolute inset-0 bg-gradient-to-r from-on-surface/60 to-transparent"></div>
-    </div>
-    <div class="relative z-10 max-w-4xl space-y-8">
-        <div class="inline-block px-4 py-1 bg-secondary-fixed text-on-secondary-fixed font-headline text-xs font-bold tracking-widest uppercase mb-4">
-            El Nuevo Estándar
-        </div>
-        <h1 class="text-6xl md:text-9xl font-headline font-black text-white tracking-tighter leading-none">
-            Reventa,<br/>Reinventada.
-        </h1>
-        <p class="text-xl md:text-2xl text-surface-container-lowest max-w-xl font-body leading-relaxed opacity-90">
-            La curación se encuentra con la circularidad. Moda de archivo premium que respeta el planeta y tu estética.
-        </p>
-        <div class="flex flex-wrap gap-4 pt-6">
-            <a href="shop/" class="px-10 py-5 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform duration-300 inline-block">
-                Explorar Tienda
-            </a>
-            <a href="contact/" class="px-10 py-5 border-2 border-white text-white font-headline font-black text-sm uppercase tracking-widest hover:bg-white hover:text-on-surface transition-colors duration-300 inline-block">
-                Vende Tus Piezas
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- ===== FILTER BAR + FEATURED PRODUCTS ===== -->
-<section class="bg-surface-container-low py-8 sticky top-[72px] z-40 border-y border-outline-variant/10" id="products">
-    <div class="max-w-screen-2xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
-        <div class="flex flex-wrap items-center gap-3">
-            <!-- Categoría -->
-            <div class="filter-btn-wrapper">
-                <button
-                    data-dropdown-toggle="dd-home-cat"
-                    class="flex items-center gap-2 px-6 py-2 bg-surface-container-lowest rounded-full font-headline text-xs font-bold uppercase tracking-wider border border-outline-variant/20">
-                    <span id="home-cat-label">Categoría</span>
-                    <span class="material-symbols-outlined text-sm">expand_more</span>
-                </button>
-                <div id="dd-home-cat" class="filter-dropdown-menu">
-                    <button class="filter-dropdown-item" data-home-filter-cat="">Todas</button>
-                    <!-- Generadas dinámicamente desde CONFIG.CATEGORIES -->
+        <!-- ===== HERO SECTION ===== -->
+        <section class="relative h-[921px] w-full overflow-hidden flex items-center px-6 md:px-12">
+            <div class="absolute inset-0 z-0">
+                <img alt="Fotografía editorial de moda urbana de segunda mano" class="w-full h-full object-cover"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuClU7Xw0gPKbF24HQywnJGyb6ByS4Aqq3CLaXy1FI8g9cBXuhHmKKWMwWaypLS_H-kv9EmtaNpr1pE7Ik3Z-6lOGP1tFjUc4NlYIhMcji4SjGTf0kPpT3Mrm3qozAlfQPwpeiS2rYETGeH7_Dzu__g82vm7oxEbLhpTTKMGPAwpt9u4bOiXtICgl06mUAFcPSelVEoUqQCx3a69sJ7DtHHRA8tvhn2gUqLGaFDT4EuhuU07eiDIEiVBd2-SbBjYzwlcqMdSxdsOlVG3" />
+                <div class="absolute inset-0 bg-gradient-to-r from-on-surface/60 to-transparent"></div>
+            </div>
+            <div class="relative z-10 max-w-4xl space-y-8">
+                <div
+                    class="inline-block px-4 py-1 bg-secondary-fixed text-on-secondary-fixed font-headline text-xs font-bold tracking-widest uppercase mb-4">
+                    El Nuevo Estándar
+                </div>
+                <h1 class="text-6xl md:text-9xl font-headline font-black text-white tracking-tighter leading-none">
+                    Reventa,<br />Reinventada.
+                </h1>
+                <p
+                    class="text-xl md:text-2xl text-surface-container-lowest max-w-xl font-body leading-relaxed opacity-90">
+                    La curación se encuentra con la circularidad. Moda de archivo premium que respeta el planeta y tu
+                    estética.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-6">
+                    <a href="shop/"
+                        class="px-10 py-5 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform duration-300 inline-block">
+                        Explorar Tienda
+                    </a>
+                    <a href="contact/"
+                        class="px-10 py-5 border-2 border-white text-white font-headline font-black text-sm uppercase tracking-widest hover:bg-white hover:text-on-surface transition-colors duration-300 inline-block">
+                        Vende Tus Piezas
+                    </a>
                 </div>
             </div>
+        </section>
 
-            <div class="h-6 w-px bg-outline-variant/30 hidden md:block"></div>
-            <a href="shop/" class="text-xs font-headline font-bold uppercase tracking-widest text-secondary underline underline-offset-4">
-                Ver Todo
-            </a>
-        </div>
+        <!-- ===== FILTER BAR + FEATURED PRODUCTS ===== -->
+        <section class="bg-surface-container-low py-4 sticky top-[63px] z-40 border-y border-outline-variant/10"
+            id="products">
+            <div class="max-w-screen-2xl mx-auto px-6 flex flex-wrap items-center justify-between gap-6">
+                <div class="flex flex-wrap items-center gap-3">
+                    <!-- Categoría -->
+                    <div class="filter-btn-wrapper">
+                        <button data-dropdown-toggle="dd-home-cat"
+                            class="flex items-center gap-2 px-6 py-2 bg-surface-container-lowest rounded-full font-headline text-xs font-bold uppercase tracking-wider border border-outline-variant/20">
+                            <span id="home-cat-label">Categoría</span>
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+                        </button>
+                        <div id="dd-home-cat" class="filter-dropdown-menu">
+                            <button class="filter-dropdown-item" data-home-filter-cat="">Todas</button>
+                            <!-- Generadas dinámicamente desde CONFIG.CATEGORIES -->
+                        </div>
+                    </div>
 
-        <div class="flex items-center gap-4">
-            <span class="text-xs font-headline font-bold uppercase tracking-widest opacity-50">Ordenar Por:</span>
-            <button class="flex items-center gap-2 font-headline text-xs font-bold uppercase tracking-wider">
-                Más Recientes <span class="material-symbols-outlined text-sm">expand_more</span>
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- Featured Products Grid -->
-<section class="py-20 px-6 max-w-screen-2xl mx-auto">
-    <div class="flex justify-between items-end mb-12">
-        <div>
-            <h2 class="text-4xl font-headline font-black tracking-tighter uppercase">Últimas Piezas</h2>
-            <p class="text-on-surface-variant font-body mt-2">Piezas seleccionadas de los archivos más icónicos.</p>
-        </div>
-        <a class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface hover:text-secondary transition-colors border-b-2 border-on-surface pb-1" href="shop/">
-            Ver Todas las Piezas
-        </a>
-    </div>
-    <!-- Grid dinámico -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="featured-products">
-        <!-- Productos cargados por products.js -->
-    </div>
-</section>
-
-<!-- ===== CATEGORIES BENTO GRID ===== -->
-<section class="py-20 bg-surface-container-low">
-    <div class="max-w-screen-2xl mx-auto px-6">
-        <h2 class="text-4xl font-headline font-black tracking-tighter uppercase mb-12 text-center">Explorar Categorías</h2>
-        <div class="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-6 h-[800px] md:h-[600px]">
-
-            <!-- Abrigos "” 8 cols -->
-            <a href="shop/?category=outerwear" class="category-hero-card md:col-span-8 md:row-span-1">
-                <img
-                    alt="Colección de abrigos vintage"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBpDjZpyG5EVjoMa3-_wnF6X0nLkJobYKOAFN0MiXhbWuzY5cr6nh_ELqDXFKRMHkZJ5aeNuKjmmzRAxDy4pUXDW5rpZQTCVchdGuD1eIVfglBvu8xbk4m82ijvtE3uWU2EEJpusleMDcWLMX8kKI-5BSWXZ4nM99RqCj-oTV_BQzHgBkp8AbMB-fSCiwCvrSX07M2v-AsINtMl0EhWIkONbBB6d4o3f3lAhP6ZjrkcenzNeyRMjCHFUu67JgbJHxCL4RG4pyrLSIT"
-                />
-                <div class="category-hero-card-overlay">
-                    <span class="text-white font-headline text-4xl font-black uppercase tracking-tighter">Abrigos</span>
+                    <div class="h-6 w-px bg-outline-variant/30 hidden md:block"></div>
+                    <a href="shop/"
+                        class="text-xs font-headline font-bold uppercase tracking-widest text-secondary underline underline-offset-4">
+                        Ver Todo
+                    </a>
                 </div>
-            </a>
 
-            <!-- Calzado "” 4 cols, 2 rows -->
-            <a href="shop/?category=footwear" class="category-hero-card md:col-span-4 md:row-span-2">
-                <img
-                    alt="Archivo de calzado"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oqY5lD_k0SP69WpjRc2pJGIgAS5igBrlbDOMwiT5N4JbC5VxaZ_ZjNlkskBPfaFnS9YvbsT_WmyKe5dNoDDMDcWp5aAzd01qpwzGKK75PCNBUQKLgNOyldyGgmoBnlizPzTnxsJH1deMN4uZ5gUv-kwz2G9LjhzYkElc_mGJQthueP4WACM42X65VOJCKaMnAfhKCi-8g-D-LDD_4TJ6u2UkgujGquStZFAmmdKMR6EBOJNpQQIWSo3dsZX6WtAGvehg7OmndCb_"
-                />
-                <div class="category-hero-card-overlay">
-                    <span class="text-white font-headline text-4xl font-black uppercase tracking-tighter -rotate-90">Calzado</span>
+                <div class="flex items-center gap-4">
+                    <span class="text-xs font-headline font-bold uppercase tracking-widest opacity-50">Ordenar
+                        Por:</span>
+                    <button class="flex items-center gap-2 font-headline text-xs font-bold uppercase tracking-wider">
+                        Más Recientes <span class="material-symbols-outlined text-sm">expand_more</span>
+                    </button>
                 </div>
-            </a>
-
-            <!-- Accesorios "” 4 cols -->
-            <a href="shop/?category=accessories" class="category-hero-card md:col-span-4 md:row-span-1">
-                <img
-                    alt="Sección de accesorios"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaf1yrKXjOgyUniuSbChyU96uPe--HMHRRLNnbd41LOahVauxxfjOlTjerkXyQjIhJfbNHsQygZTquZN5Fto26lVtY-cKNkru6oL9XUaXphxKHICTmCLwPfKifxYhKmjIR0HnEyRkU-niyEDJA8uyemu1PtzfvhGJqBn0wgd2DYr-1uReyTjF1CfCbW2ZFoQHci3mO_iKsMocJKPK7rApG36abFV1NiUvCzpuw1KjhEaz4hW-ILFJLAcpPV3Nz5edwWWrORrV8WHvH"
-                />
-                <div class="category-hero-card-overlay">
-                    <span class="text-white font-headline text-3xl font-black uppercase tracking-tighter">Accesorios</span>
-                </div>
-            </a>
-
-            <!-- Pantalones "” 4 cols -->
-            <a href="shop/?category=bottoms" class="category-hero-card md:col-span-4 md:row-span-1">
-                <img
-                    alt="Archivo de pantalones y denim"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQOxl445mFK2xhNyJgXDBLGfFvYCOvhuh5kGEPc2yC95ym9KEcs9d37PTqQBZYC4SMXzTMl3w0CMav2UJ2P_wPg9YjR10opO3e1L7YrltSKunbkm0z0DhNokvNh2e5sIdy96vbF2nNYWak1ppbEr8JqMuPkeMz6cB6g1JlC6J9bJiG80OWg7WEeOyTL5DysgXoLykUuOMvYL_aMWrJZH57qqgZ8g99TSGNlPAkpXrjr33gqRbsE-w00wHpQYAH1C_yEw7A1IbQqe9S"
-                />
-                <div class="category-hero-card-overlay">
-                    <span class="text-white font-headline text-3xl font-black uppercase tracking-tighter">Pantalones</span>
-                </div>
-            </a>
-
-        </div>
-    </div>
-</section>
-
-<!-- ===== ABOUT / BRAND SECTION ===== -->
-<section class="py-32 px-6">
-    <div class="max-w-4xl mx-auto text-center space-y-12">
-        <div class="flex justify-center mb-6">
-            <span class="material-symbols-outlined text-6xl text-secondary">recycling</span>
-        </div>
-        <h2 class="text-5xl md:text-7xl font-headline font-black tracking-tighter uppercase leading-none">
-            La moda es infinita.<br/>El desperdicio no.
-        </h2>
-        <div class="grid md:grid-cols-3 gap-12 text-left pt-12">
-            <div class="space-y-4">
-                <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">01. Circularidad</h4>
-                <p class="text-on-surface-variant leading-relaxed">Extendemos el ciclo de vida de prendas de alta calidad, reduciendo la huella de la industria de la moda una pieza a la vez.</p>
             </div>
-            <div class="space-y-4">
-                <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">02. Autenticidad</h4>
-                <p class="text-on-surface-variant leading-relaxed">Cada pieza es verificada por nuestro equipo. Autenticidad garantizada o te devolvemos el dinero.</p>
+        </section>
+
+        <!-- Featured Products Grid -->
+        <section class="py-20 px-6 max-w-screen-2xl mx-auto">
+            <div class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-headline font-black tracking-tighter uppercase">Últimas Piezas</h2>
+                    <p class="text-on-surface-variant font-body mt-2">Piezas seleccionadas de los archivos más icónicos.
+                    </p>
+                </div>
+                <a class="font-headline text-sm font-bold uppercase tracking-widest text-on-surface hover:text-secondary transition-colors border-b-2 border-on-surface pb-1"
+                    href="shop/">
+                    Ver Todas las Piezas
+                </a>
             </div>
-            <div class="space-y-4">
-                <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">03. Accesibilidad</h4>
-                <p class="text-on-surface-variant leading-relaxed">La moda de diseño premium no debería ser exclusiva. Ofrecemos moda de calidad a precios accesibles.</p>
+            <!-- Grid dinámico -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="featured-products">
+                <!-- Productos cargados por products.js -->
             </div>
-        </div>
-        <div class="pt-12">
-            <a class="inline-flex items-center gap-4 px-12 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-[0.2em] hover:bg-secondary transition-colors" href="about/">
-                Conoce Nuestro Proceso <span class="material-symbols-outlined">arrow_right_alt</span>
-            </a>
-        </div>
-    </div>
-</section>
+        </section>
 
-</main>
+        <!-- ===== CATEGORIES BENTO GRID ===== -->
+        <section class="py-20 bg-surface-container-low">
+            <div class="max-w-screen-2xl mx-auto px-6">
+                <h2 class="text-4xl font-headline font-black tracking-tighter uppercase mb-12 text-center">Explorar
+                    Categorías</h2>
+                <div class="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-6 h-[800px] md:h-[600px]">
 
-<!-- Footer (injected) -->
-<div id="footer-container"></div>
+                    <!-- Abrigos — 8 cols -->
+                    <a href="shop/?category=outerwear" class="category-hero-card md:col-span-8 md:row-span-1">
+                        <img alt="Colección de abrigos vintage"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBpDjZpyG5EVjoMa3-_wnF6X0nLkJobYKOAFN0MiXhbWuzY5cr6nh_ELqDXFKRMHkZJ5aeNuKjmmzRAxDy4pUXDW5rpZQTCVchdGuD1eIVfglBvu8xbk4m82ijvtE3uWU2EEJpusleMDcWLMX8kKI-5BSWXZ4nM99RqCj-oTV_BQzHgBkp8AbMB-fSCiwCvrSX07M2v-AsINtMl0EhWIkONbBB6d4o3f3lAhP6ZjrkcenzNeyRMjCHFUu67JgbJHxCL4RG4pyrLSIT" />
+                        <div class="category-hero-card-overlay">
+                            <span
+                                class="text-white font-headline text-4xl font-black uppercase tracking-tighter">Abrigos</span>
+                        </div>
+                    </a>
 
-<!-- Scripts -->
-<script src="js/config.js"></script>
-<script src="js/supabase-client.js"></script>
-<script src="js/products.js"></script>
-<script src="js/cart.js"></script>
-<script src="js/whatsapp.js"></script>
-<script src="js/app.js"></script>
-<script>
-// Inyectar nav y footer
-document.getElementById('nav-container').innerHTML   = getNavHTML('inicio');
-document.getElementById('footer-container').innerHTML = getFooterHTML();
+                    <!-- Calzado — 4 cols, 2 rows -->
+                    <a href="shop/?category=footwear" class="category-hero-card md:col-span-4 md:row-span-2">
+                        <img alt="Archivo de calzado"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oqY5lD_k0SP69WpjRc2pJGIgAS5igBrlbDOMwiT5N4JbC5VxaZ_ZjNlkskBPfaFnS9YvbsT_WmyKe5dNoDDMDcWp5aAzd01qpwzGKK75PCNBUQKLgNOyldyGgmoBnlizPzTnxsJH1deMN4uZ5gUv-kwz2G9LjhzYkElc_mGJQthueP4WACM42X65VOJCKaMnAfhKCi-8g-D-LDD_4TJ6u2UkgujGquStZFAmmdKMR6EBOJNpQQIWSo3dsZX6WtAGvehg7OmndCb_" />
+                        <div class="category-hero-card-overlay">
+                            <span
+                                class="text-white font-headline text-4xl font-black uppercase tracking-tighter -rotate-90">Calzado</span>
+                        </div>
+                    </a>
 
-// Actualizar título con nombre de tienda
-document.title = CONFIG.STORE_NAME + ' "” Moda de Segunda Mano | Tienda';
-document.querySelector('meta[property="og:title"]').content = CONFIG.STORE_NAME + ' "” Moda de Segunda Mano';
+                    <!-- Accesorios — 4 cols -->
+                    <a href="shop/?category=accessories" class="category-hero-card md:col-span-4 md:row-span-1">
+                        <img alt="Sección de accesorios"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaf1yrKXjOgyUniuSbChyU96uPe--HMHRRLNnbd41LOahVauxxfjOlTjerkXyQjIhJfbNHsQygZTquZN5Fto26lVtY-cKNkru6oL9XUaXphxKHICTmCLwPfKifxYhKmjIR0HnEyRkU-niyEDJA8uyemu1PtzfvhGJqBn0wgd2DYr-1uReyTjF1CfCbW2ZFoQHci3mO_iKsMocJKPK7rApG36abFV1NiUvCzpuw1KjhEaz4hW-ILFJLAcpPV3Nz5edwWWrORrV8WHvH" />
+                        <div class="category-hero-card-overlay">
+                            <span
+                                class="text-white font-headline text-3xl font-black uppercase tracking-tighter">Accesorios</span>
+                        </div>
+                    </a>
 
-// Poblar dropdown de categorías del home
-const ddHomeCat = document.getElementById('dd-home-cat');
-if (ddHomeCat) {
-    CONFIG.CATEGORIES.forEach(cat => {
-        const btn = document.createElement('button');
-        btn.className = 'filter-dropdown-item';
-        btn.dataset.homeFilterCat = cat.id;
-        btn.textContent = cat.name;
-        btn.addEventListener('click', () => {
-            window.location.href = 'shop/?category=' + cat.id;
+                    <!-- Pantalones — 4 cols -->
+                    <a href="shop/?category=bottoms" class="category-hero-card md:col-span-4 md:row-span-1">
+                        <img alt="Archivo de pantalones y denim"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQOxl445mFK2xhNyJgXDBLGfFvYCOvhuh5kGEPc2yC95ym9KEcs9d37PTqQBZYC4SMXzTMl3w0CMav2UJ2P_wPg9YjR10opO3e1L7YrltSKunbkm0z0DhNokvNh2e5sIdy96vbF2nNYWak1ppbEr8JqMuPkeMz6cB6g1JlC6J9bJiG80OWg7WEeOyTL5DysgXoLykUuOMvYL_aMWrJZH57qqgZ8g99TSGNlPAkpXrjr33gqRbsE-w00wHpQYAH1C_yEw7A1IbQqe9S" />
+                        <div class="category-hero-card-overlay">
+                            <span
+                                class="text-white font-headline text-3xl font-black uppercase tracking-tighter">Pantalones</span>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT / BRAND SECTION ===== -->
+        <section class="py-32 px-6">
+            <div class="max-w-4xl mx-auto text-center space-y-12">
+                <div class="flex justify-center mb-6">
+                    <span class="material-symbols-outlined text-6xl text-secondary">recycling</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-headline font-black tracking-tighter uppercase leading-none">
+                    La moda es infinita.<br />El desperdicio no.
+                </h2>
+                <div class="grid md:grid-cols-3 gap-12 text-left pt-12">
+                    <div class="space-y-4">
+                        <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">01.
+                            Circularidad</h4>
+                        <p class="text-on-surface-variant leading-relaxed">Extendemos el ciclo de vida de prendas de
+                            alta calidad, reduciendo la huella de la industria de la moda una pieza a la vez.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">02.
+                            Autenticidad</h4>
+                        <p class="text-on-surface-variant leading-relaxed">Cada pieza es verificada por nuestro equipo.
+                            Autenticidad garantizada o te devolvemos el dinero.</p>
+                    </div>
+                    <div class="space-y-4">
+                        <h4 class="font-headline font-black uppercase tracking-widest text-sm text-secondary">03.
+                            Accesibilidad</h4>
+                        <p class="text-on-surface-variant leading-relaxed">La moda de diseño premium no debería ser
+                            exclusiva. Ofrecemos moda de calidad a precios accesibles.</p>
+                    </div>
+                </div>
+                <div class="pt-12">
+                    <a class="inline-flex items-center gap-4 px-12 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-[0.2em] hover:bg-secondary transition-colors"
+                        href="about/">
+                        Conoce Nuestro Proceso <span class="material-symbols-outlined">arrow_right_alt</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (injected) -->
+    <div id="footer-container"></div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/supabase-client.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/whatsapp.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // Inyectar nav y footer
+        document.getElementById('nav-container').innerHTML = getNavHTML('inicio');
+        document.getElementById('footer-container').innerHTML = getFooterHTML();
+
+        // Actualizar título con nombre de tienda
+        document.title = CONFIG.STORE_NAME + ' — Moda de Segunda Mano | Tienda';
+        document.querySelector('meta[property="og:title"]').content = CONFIG.STORE_NAME + ' — Moda de Segunda Mano';
+
+        // Poblar dropdown de categorías del home
+        const ddHomeCat = document.getElementById('dd-home-cat');
+        if (ddHomeCat) {
+            CONFIG.CATEGORIES.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'filter-dropdown-item';
+                btn.dataset.homeFilterCat = cat.id;
+                btn.textContent = cat.name;
+                btn.addEventListener('click', () => {
+                    window.location.href = 'shop/?category=' + cat.id;
+                });
+                ddHomeCat.appendChild(btn);
+            });
+        }
+
+        // Cargar los 4 productos más recientes
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProductGrid('featured-products', { limit: 4 });
+            updateCartBadge();
         });
-        ddHomeCat.appendChild(btn);
-    });
-}
-
-// Cargar los 4 productos más recientes
-document.addEventListener('DOMContentLoaded', () => {
-    renderProductGrid('featured-products', { limit: 4 });
-    updateCartBadge();
-});
-</script>
-<script>
-// Tailwind custom colors — va al final del body cuando el DOM ya está completo
-tailwind.config = {
-    darkMode: "class",
-    theme: { extend: {
-        colors: {
-            "error-container":"#f95630","error":"#b02500","surface-container":"#e7e8e8",
-            "on-secondary-fixed":"#354500","surface-tint":"#5b5b5b","outline":"#767777",
-            "surface-container-highest":"#dbdddd","secondary-container":"#c3f400",
-            "on-primary-container":"#575757","on-primary-fixed":"#444444",
-            "on-tertiary-fixed-variant":"#6e6d6d","surface-container-high":"#e1e3e3",
-            "primary-container":"#ebebeb","on-primary":"#f3f3f3",
-            "surface-container-lowest":"#ffffff","tertiary-dim":"#504f4f",
-            "secondary-fixed":"#c3f400","surface-variant":"#dbdddd","surface-dim":"#d3d5d5",
-            "surface-bright":"#f6f6f6","primary":"#5b5b5b","primary-fixed-dim":"#dddddd",
-            "inverse-primary":"#ffffff","on-error-container":"#520c00",
-            "on-secondary-container":"#455900","on-error":"#ffefec","primary-dim":"#4f4f4f",
-            "tertiary-fixed":"#ffffff","error-dim":"#b92902","secondary-fixed-dim":"#b7e500",
-            "on-tertiary":"#f5f2f1","secondary-dim":"#435600","on-surface":"#2d2f2f",
-            "surface-container-low":"#f0f1f1","inverse-surface":"#0c0f0f",
-            "on-surface-variant":"#5a5c5c","secondary":"#4e6300","tertiary":"#5c5b5b",
-            "on-tertiary-container":"#636262","surface":"#f6f6f6",
-            "on-primary-fixed-variant":"#616161","tertiary-container":"#ffffff",
-            "on-tertiary-fixed":"#515050","outline-variant":"#acadad",
-            "inverse-on-surface":"#9c9d9d","on-secondary-fixed-variant":"#4e6300",
-            "on-secondary":"#e1ff88","background":"#f6f6f6","on-background":"#2d2f2f",
-            "primary-fixed":"#ebebeb","tertiary-fixed-dim":"#f3f0ef"
-        },
-        fontFamily: {
-            "headline":["Inter","sans-serif"],
-            "body":["Manrope","sans-serif"],
-            "label":["Inter","sans-serif"]
-        },
-        borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"}
-    }}
-};
-</script>
+    </script>
+    <script>
+        // Tailwind custom colors — va al final del body cuando el DOM ya está completo
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#f95630", "error": "#b02500", "surface-container": "#e7e8e8",
+                        "on-secondary-fixed": "#354500", "surface-tint": "#5b5b5b", "outline": "#767777",
+                        "surface-container-highest": "#dbdddd", "secondary-container": "#c3f400",
+                        "on-primary-container": "#575757", "on-primary-fixed": "#444444",
+                        "on-tertiary-fixed-variant": "#6e6d6d", "surface-container-high": "#e1e3e3",
+                        "primary-container": "#ebebeb", "on-primary": "#f3f3f3",
+                        "surface-container-lowest": "#ffffff", "tertiary-dim": "#504f4f",
+                        "secondary-fixed": "#c3f400", "surface-variant": "#dbdddd", "surface-dim": "#d3d5d5",
+                        "surface-bright": "#f6f6f6", "primary": "#5b5b5b", "primary-fixed-dim": "#dddddd",
+                        "inverse-primary": "#ffffff", "on-error-container": "#520c00",
+                        "on-secondary-container": "#455900", "on-error": "#ffefec", "primary-dim": "#4f4f4f",
+                        "tertiary-fixed": "#ffffff", "error-dim": "#b92902", "secondary-fixed-dim": "#b7e500",
+                        "on-tertiary": "#f5f2f1", "secondary-dim": "#435600", "on-surface": "#2d2f2f",
+                        "surface-container-low": "#f0f1f1", "inverse-surface": "#0c0f0f",
+                        "on-surface-variant": "#5a5c5c", "secondary": "#4e6300", "tertiary": "#5c5b5b",
+                        "on-tertiary-container": "#636262", "surface": "#f6f6f6",
+                        "on-primary-fixed-variant": "#616161", "tertiary-container": "#ffffff",
+                        "on-tertiary-fixed": "#515050", "outline-variant": "#acadad",
+                        "inverse-on-surface": "#9c9d9d", "on-secondary-fixed-variant": "#4e6300",
+                        "on-secondary": "#e1ff88", "background": "#f6f6f6", "on-background": "#2d2f2f",
+                        "primary-fixed": "#ebebeb", "tertiary-fixed-dim": "#f3f0ef"
+                    },
+                    fontFamily: {
+                        "headline": ["Inter", "sans-serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }
+                }
+            }
+        };
+    </script>
 </body>
+
 </html>
