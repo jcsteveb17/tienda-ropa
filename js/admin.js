@@ -4,12 +4,12 @@
 const ADMIN_SESSION_KEY = 'webropa_admin';
 
 /* =====================================================
-   AUTENTICACIÓN
+   AUTENTICACIÓN (NATIVA CON SUPABASE)
    ===================================================== */
 
-function checkAdminAuth() {
-    const isAuth = sessionStorage.getItem(ADMIN_SESSION_KEY) === 'true';
-    if (isAuth) {
+async function checkAdminAuth() {
+    const { data: { session } } = await db.auth.getSession();
+    if (session) {
         showAdminPanel();
     } else {
         showPasswordGate();
@@ -19,7 +19,8 @@ function checkAdminAuth() {
 function showPasswordGate() {
     document.getElementById('admin-gate').style.display    = 'flex';
     document.getElementById('admin-panel').style.display   = 'none';
-    document.getElementById('admin-password').focus();
+    const pwdInput = document.getElementById('admin-password');
+    if (pwdInput) pwdInput.focus();
 }
 
 function showAdminPanel() {
@@ -28,28 +29,45 @@ function showAdminPanel() {
     initAdminPanel();
 }
 
-function handleAdminLogin(e) {
+async function handleAdminLogin(e) {
     if (e) e.preventDefault();
-    const input    = document.getElementById('admin-password');
-    const errorEl  = document.getElementById('admin-gate-error');
-    const password = input.value;
+    const emailInput = document.getElementById('admin-email');
+    const passwordInput = document.getElementById('admin-password');
+    const errorEl = document.getElementById('admin-gate-error');
+    const btn = document.getElementById('btn-admin-login');
 
-    if (password === CONFIG.ADMIN_PASSWORD) {
-        sessionStorage.setItem(ADMIN_SESSION_KEY, 'true');
+    if (btn) {
+        btn.textContent = 'Autenticando...';
+        btn.disabled = true;
+    }
+
+    const { data, error } = await db.auth.signInWithPassword({
+        email: emailInput.value.trim(),
+        password: passwordInput.value
+    });
+
+    if (btn) {
+        btn.textContent = 'Acceder';
+        btn.disabled = false;
+    }
+
+    if (error) {
+        passwordInput.value = '';
+        errorEl.textContent = 'Credenciales incorrectas: ' + error.message;
+        errorEl.classList.add('show');
+        
+        // Shake animation
+        passwordInput.style.borderBottomColor = '#f95630';
+        setTimeout(() => { passwordInput.style.borderBottomColor = ''; }, 1500);
+        passwordInput.focus();
+    } else {
         errorEl.classList.remove('show');
         showAdminPanel();
-    } else {
-        input.value = '';
-        errorEl.classList.add('show');
-        // Shake animation
-        input.style.borderBottomColor = '#f95630';
-        setTimeout(() => { input.style.borderBottomColor = ''; }, 1500);
-        input.focus();
     }
 }
 
-function handleAdminLogout() {
-    sessionStorage.removeItem(ADMIN_SESSION_KEY);
+async function handleAdminLogout() {
+    await db.auth.signOut();
     window.location.href = CONFIG.SITE_BASE;
 }
 

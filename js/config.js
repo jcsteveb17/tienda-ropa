@@ -28,7 +28,7 @@ const CONFIG = {
     STORE_NAME: 'ARCHIVE',                                  // ← Cambiar (ver SETUP.md)
 
     // --- Admin (ver SETUP.md sección 4) ---
-    ADMIN_PASSWORD: 'admin123',                             // ← Cambiar (ver SETUP.md)
+    // (Migrado a Supabase Auth. Las contraseñas ya no se gestionan en el cliente)
 
     // --- General ---
     CURRENCY: '$',

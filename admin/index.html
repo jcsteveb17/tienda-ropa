@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="scroll-smooth" lang="es">
 <head>
 <meta charset="utf-8"/>
@@ -29,6 +29,15 @@
         </div>
 
         <form id="admin-login-form" onsubmit="handleAdminLogin(event)" novalidate>
+            <label class="admin-label" for="admin-email">Correo Electrónico</label>
+            <input
+                id="admin-email"
+                type="email"
+                class="admin-input mb-4"
+                placeholder="admin@tu-dominio.com"
+                autocomplete="username"
+                required
+            />
             <label class="admin-label" for="admin-password">Contraseña</label>
             <input
                 id="admin-password"
