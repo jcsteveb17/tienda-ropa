@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Admin — ARCHIVE</title>
+<!-- No meta description — admin page is not indexed -->
+<meta name="robots" content="noindex, nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<!-- =====================================================
+   🔒 PASSWORD GATE (mostrado si no hay sesión)
+   ===================================================== -->
+<div id="admin-gate" class="admin-gate" style="display:none">
+    <div class="admin-gate-box">
+
+        <div class="flex items-center gap-3 mb-8">
+            <span class="material-symbols-outlined text-secondary text-3xl">lock</span>
+            <div>
+                <h1 class="admin-gate-title">Panel de Administración</h1>
+                <p class="admin-gate-subtitle">Área restringida — solo personal autorizado</p>
+            </div>
+        </div>
+
+        <form id="admin-login-form" onsubmit="handleAdminLogin(event)" novalidate>
+            <label class="admin-label" for="admin-password">Contraseña</label>
+            <input
+                id="admin-password"
+                type="password"
+                class="admin-input"
+                placeholder="Ingresa tu contraseña"
+                autocomplete="current-password"
+                required
+            />
+            <p id="admin-gate-error" class="admin-gate-error">
+                Contraseña incorrecta. Vuelve a intentarlo.
+            </p>
+
+            <div class="flex gap-4 mt-8 items-center">
+                <button
+                    type="submit"
+                    class="flex-1 py-4 bg-on-surface text-white font-headline font-black text-sm uppercase tracking-widest hover:bg-secondary transition-colors">
+                    Acceder
+                </button>
+                <a href="index.html" class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors underline underline-offset-4">
+                    ← Volver
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<!-- =====================================================
+   ADMIN PANEL (oculto hasta autenticarse)
+   ===================================================== -->
+<div id="admin-panel" style="display:none">
+
+    <!-- Header -->
+    <header class="bg-white sticky top-0 z-50 border-b border-outline-variant/15 shadow-sm">
+        <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-secondary">admin_panel_settings</span>
+                <div>
+                    <span id="admin-store-name" class="font-headline font-black tracking-tight text-lg"></span>
+                    <span class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant ml-3">Panel de Administración</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="index.html" target="_blank" class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors">
+                    Ver Tienda ↗
+                </a>
+                <button
+                    onclick="handleAdminLogout()"
+                    class="flex items-center gap-2 px-5 py-2 bg-surface-container font-headline text-xs font-bold uppercase tracking-widest hover:bg-error-container hover:text-error transition-colors">
+                    <span class="material-symbols-outlined text-sm">logout</span>
+                    Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-screen-2xl mx-auto px-6 py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12">
+
+            <!-- ===== FORMULARIO (sidebar) ===== -->
+            <div class="lg:col-span-2" id="admin-form-section">
+
+                <div class="bg-surface-container-lowest p-8 editorial-shadow sticky top-24">
+
+                    <h2 id="form-title" class="font-headline font-black uppercase tracking-tight text-xl mb-8">Agregar Producto</h2>
+
+                    <form id="admin-product-form" novalidate>
+
+                        <label class="admin-label" for="form-name">Nombre del Producto *</label>
+                        <input id="form-name" type="text" class="admin-input" placeholder="Ej: Blazer Vintage Oversize" required/>
+
+                        <label class="admin-label" for="form-price">Precio (USD) *</label>
+                        <input id="form-price" type="number" class="admin-input" placeholder="0.00" step="0.01" min="0" required/>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="admin-label" for="form-category">Categoría</label>
+                                <select id="form-category" class="admin-select">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="admin-label" for="form-condition">Condición</label>
+                                <select id="form-condition" class="admin-select">
+                                    <option value="">Seleccionar</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <label class="admin-label" for="form-size">Talla</label>
+                        <select id="form-size" class="admin-select">
+                            <option value="">Seleccionar</option>
+                        </select>
+
+                        <label class="admin-label" for="form-description">Descripción</label>
+                        <textarea id="form-description" class="admin-input" rows="3" placeholder="Describe la procedencia, materiales, detalles especiales..."></textarea>
+
+                        <!-- Imagen principal -->
+                        <label class="admin-label">Imagen Principal <span style="color:#f95630">*</span></label>
+                        <div id="drop-zone" class="drop-zone" role="button" tabindex="0">
+                            <div id="drop-zone-icon" class="drop-zone-icon">
+                                <span class="material-symbols-outlined" style="font-size:2.5rem">cloud_upload</span>
+                            </div>
+                            <p id="drop-zone-text" class="drop-zone-text">Arrastra la foto principal aquí o haz clic</p>
+                            <img id="image-preview" class="drop-zone-preview hidden" style="display:none"/>
+                        </div>
+                        <input id="image-file-input" type="file" accept="image/*" class="hidden"/>
+
+                        <!-- URL manual (alternativa) -->
+                        <label class="admin-label" for="form-image-url">...o pega una URL de imagen principal</label>
+                        <input id="form-image-url" type="url" class="admin-input" placeholder="https://..."/>
+
+                        <!-- Fotos adicionales -->
+                        <div class="flex items-center justify-between mt-5">
+                            <label class="admin-label" style="margin-top:0">Fotos Adicionales</label>
+                            <span id="extra-img-counter" class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">0 / 4</span>
+                        </div>
+                        <div id="extra-images-grid" class="grid grid-cols-4 gap-2 mt-2">
+                            <!-- 4 slots generados por admin.js -->
+                        </div>
+                        <input id="extra-image-file-input" type="file" accept="image/*" class="hidden"/>
+
+                        <!-- Actions -->
+                        <div class="flex gap-3 mt-8">
+                            <button
+                                type="submit"
+                                id="btn-product-submit"
+                                class="flex-1 py-4 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest hover:bg-secondary-fixed-dim transition-colors">
+                                Publicar Producto
+                            </button>
+                            <button
+                                type="button"
+                                id="btn-cancel-edit"
+                                onclick="resetForm()"
+                                style="display:none"
+                                class="px-5 py-4 bg-surface-container font-headline text-xs font-bold uppercase tracking-wider hover:bg-error-container hover:text-error transition-colors">
+                                Cancelar
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Separador -->
+                    <div class="mt-8 pt-8 border-t border-outline-variant/15">
+                        <button
+                            id="btn-seed"
+                            class="w-full py-4 border-2 border-dashed border-outline-variant/30 font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:border-secondary hover:text-secondary transition-colors flex items-center justify-center gap-3">
+                            <span class="material-symbols-outlined text-sm">auto_fix_high</span>
+                            Cargar Productos de Ejemplo
+                        </button>
+                        <p class="font-body text-xs text-on-surface-variant/60 text-center mt-2">
+                            Inserta 8 piezas de ejemplo en tu base de datos
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===== LISTA DE PRODUCTOS ===== -->
+            <div class="lg:col-span-3">
+
+                <div class="flex items-center justify-between mb-8">
+                    <div>
+                        <h2 class="font-headline font-black uppercase tracking-tight text-2xl">Inventario</h2>
+                        <p id="admin-product-count" class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mt-1"></p>
+                    </div>
+                    <button
+                        onclick="renderAdminProductList()"
+                        class="flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors">
+                        <span class="material-symbols-outlined text-sm">refresh</span>
+                        Actualizar
+                    </button>
+                </div>
+
+                <!-- Supabase not configured warning -->
+                <div id="admin-supabase-warning" class="hidden mb-6 p-4 bg-secondary-fixed/20 border-l-4 border-secondary">
+                    <p class="font-headline font-bold text-sm uppercase tracking-wider text-secondary mb-1">Supabase no configurado</p>
+                    <p class="font-body text-sm text-on-surface-variant">
+                        Para usar el admin necesitas configurar Supabase. Consulta el archivo <strong>SETUP.md</strong> para instrucciones.
+                    </p>
+                </div>
+
+                <div id="admin-product-list" class="space-y-0">
+                    <!-- Lista generada por admin.js -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Scripts (sin app.js — el admin tiene su propio header) -->
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/app.js"></script>
+<script src="js/seed.js"></script>
+<script src="js/admin.js"></script>
+<script>
+// Actualizar título y store name
+document.title = 'Admin — ' + CONFIG.STORE_NAME;
+document.getElementById('admin-store-name').textContent = CONFIG.STORE_NAME;
+
+// Verificar auth al cargar
+document.addEventListener('DOMContentLoaded', () => {
+    checkAdminAuth();
+
+    // Mostrar aviso si Supabase no configurado
+    if (CONFIG.SUPABASE_URL.includes('TU_PROYECTO') || !CONFIG.SUPABASE_URL.startsWith('https://')) {
+        document.getElementById('admin-supabase-warning').classList.remove('hidden');
+    }
+});
+</script>
+</body>
+</html>

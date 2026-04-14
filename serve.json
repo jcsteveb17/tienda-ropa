@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    { "source": "/inicio",      "destination": "/index.html"      },
+    { "source": "/tienda",      "destination": "/shop.html"        },
+    { "source": "/categorias",  "destination": "/categories.html"  },
+    { "source": "/nosotros",    "destination": "/about.html"       },
+    { "source": "/contacto",    "destination": "/contact.html"     },
+    { "source": "/carrito",     "destination": "/cart.html"        },
+    { "source": "/producto",    "destination": "/product.html"     }
+  ],
+  "headers": [
+    {
+      "source": "**/*",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache" }
+      ]
+    }
+  ]
+}

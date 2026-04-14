@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Producto — ARCHIVE</title>
+<meta name="description" content="Detalle de producto. Moda de segunda mano curada."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<style>
+.editorial-shadow { box-shadow: 0px 24px 48px rgba(45,47,47,0.06); }
+</style>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<div id="nav-container"></div>
+
+<main class="max-w-screen-2xl mx-auto px-6 py-12 lg:py-20">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-10">
+        <a href="index.html" class="hover:text-secondary transition-colors">Inicio</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <a href="shop.html" class="hover:text-secondary transition-colors">Tienda</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span id="breadcrumb-name" class="text-on-surface truncate max-w-[200px]">...</span>
+    </nav>
+
+    <!-- Estado de carga -->
+    <div id="product-loading" class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div class="lg:col-span-7 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="aspect-[3/4] skeleton"></div>
+                <div class="aspect-[3/4] skeleton md:mt-12"></div>
+                <div class="md:col-span-2 aspect-[16/9] skeleton"></div>
+            </div>
+        </div>
+        <div class="lg:col-span-5 space-y-8">
+            <div class="skeleton h-6 w-1/3"></div>
+            <div class="skeleton h-12 w-full"></div>
+            <div class="skeleton h-6 w-1/4"></div>
+            <div class="skeleton h-24 w-full"></div>
+            <div class="skeleton h-16 w-full"></div>
+            <div class="skeleton h-16 w-full"></div>
+        </div>
+    </div>
+
+    <!-- Contenido del producto (oculto hasta que cargue) -->
+    <div id="product-content" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+
+        <!-- GALERÍA DE IMÁGENES -->
+        <div class="lg:col-span-7">
+            <!-- Imagen principal grande -->
+            <div class="product-gallery-main aspect-[3/4] lg:aspect-auto lg:h-[680px] overflow-hidden group">
+                <img id="gallery-main-img"
+                     alt="Imagen del producto"
+                     class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"/>
+            </div>
+            <!-- Tira de miniaturas (se oculta si no hay fotos extra) -->
+            <div id="gallery-thumb-strip" class="product-thumb-strip hidden"></div>
+        </div>
+
+        <!-- DETALLES DEL PRODUCTO -->
+        <div class="lg:col-span-5">
+            <div class="sticky top-32 space-y-10">
+
+                <!-- Badges de condición e ID -->
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3 flex-wrap">
+                        <span id="product-condition-badge" class="bg-surface-container-high px-3 py-1 text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant"></span>
+                        <span id="product-id-badge" class="text-secondary font-label text-[10px] font-bold uppercase tracking-widest"></span>
+                    </div>
+                    <h1 id="product-name" class="text-4xl lg:text-5xl font-headline font-black tracking-tighter text-on-surface uppercase leading-none"></h1>
+                    <p id="product-price" class="text-2xl font-headline font-medium text-on-surface-variant"></p>
+                </div>
+
+                <!-- Descripción -->
+                <div class="space-y-4">
+                    <h3 class="font-label text-xs font-bold uppercase tracking-widest text-on-surface">La Procedencia</h3>
+                    <p id="product-description" class="text-on-surface-variant leading-relaxed font-body"></p>
+                </div>
+
+                <!-- Talla -->
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-label text-xs font-bold uppercase tracking-widest text-on-surface">Talla Disponible</h3>
+                    </div>
+                    <div class="flex">
+                        <span id="product-size-display"
+                            class="py-4 px-8 border-b-2 border-secondary bg-surface-container-lowest editorial-shadow font-headline text-sm font-bold">
+                            —
+                        </span>
+                    </div>
+                </div>
+
+                <!-- CTAs -->
+                <div class="space-y-4" id="product-cta-section">
+                    <!-- Generado dinámicamente -->
+                </div>
+
+                <!-- Meta info -->
+                <div class="pt-10 border-t border-outline-variant/20 grid grid-cols-2 gap-8">
+                    <div>
+                        <p class="font-label text-[10px] font-bold uppercase text-on-surface-variant mb-1">Categoría</p>
+                        <p id="product-category-label" class="font-body text-sm font-medium"></p>
+                    </div>
+                    <div>
+                        <p class="font-label text-[10px] font-bold uppercase text-on-surface-variant mb-1">Estado</p>
+                        <p id="product-status-label" class="font-body text-sm font-medium"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Error: producto no encontrado -->
+    <div id="product-error" class="hidden py-32 text-center">
+        <span class="material-symbols-outlined text-6xl text-outline-variant mb-4 block">search_off</span>
+        <h2 class="text-3xl font-headline font-black uppercase tracking-tighter mb-4">Producto no encontrado</h2>
+        <p class="text-on-surface-variant font-body mb-8">Esta pieza ya no está disponible o el enlace no es válido.</p>
+        <a href="shop.html" class="inline-flex items-center gap-3 px-10 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-widest hover:bg-secondary transition-colors">
+            Ver Todas las Piezas <span class="material-symbols-outlined">arrow_right_alt</span>
+        </a>
+    </div>
+
+    <!-- ===== PRODUCTOS RELACIONADOS ===== -->
+    <section id="related-section" class="mt-32 pt-20 border-t border-outline-variant/20 hidden">
+        <div class="flex justify-between items-end mb-12">
+            <div class="space-y-2">
+                <p class="font-label text-xs font-bold uppercase tracking-[0.2em] text-secondary">Selección Para Ti</p>
+                <h2 class="text-3xl font-headline font-black tracking-tighter uppercase">Piezas Relacionadas</h2>
+            </div>
+            <a href="shop.html" class="font-label text-xs font-bold uppercase underline underline-offset-8 decoration-2 decoration-secondary hover:text-secondary transition-colors">
+                Ver Todo
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" id="related-grid"></div>
+    </section>
+
+</main>
+
+<div id="footer-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/whatsapp.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.getElementById('nav-container').innerHTML    = getNavHTML('tienda');
+document.getElementById('footer-container').innerHTML = getFooterHTML();
+
+const STATUS_LABELS = {
+    available: 'Disponible',
+    reserved:  'Reservado',
+    sold:      'Vendido',
+};
+const CATEGORY_NAMES = {};
+CONFIG.CATEGORIES.forEach(c => { CATEGORY_NAMES[c.id] = c.name; });
+
+async function loadProduct() {
+    const params = new URLSearchParams(window.location.search);
+    const id     = params.get('id');
+
+    if (!id) { showError(); return; }
+
+    const product = await fetchProductById(id);
+
+    if (!product) { showError(); return; }
+
+    // Actualizar página
+    document.title = product.name + ' — ' + CONFIG.STORE_NAME;
+
+    // Breadcrumb
+    document.getElementById('breadcrumb-name').textContent = product.name;
+
+    // Galería de imágenes (principal + adicionales)
+    const allImages = [product.image_url || CONFIG.FALLBACK_IMAGE];
+    const extras = Array.isArray(product.extra_images) ? product.extra_images : [];
+    extras.forEach(u => { if (u) allImages.push(u); });
+
+    const mainImg = document.getElementById('gallery-main-img');
+    const thumbStrip = document.getElementById('gallery-thumb-strip');
+
+    // Mostrar imagen principal
+    mainImg.src = allImages[0];
+    mainImg.alt = product.name;
+    mainImg.onerror = () => { mainImg.src = CONFIG.FALLBACK_IMAGE; };
+
+    // Renderizar miniaturas si hay más de 1 imagen
+    if (allImages.length > 1) {
+        thumbStrip.classList.remove('hidden');
+        thumbStrip.innerHTML = allImages.map((url, i) => `
+            <img
+                class="product-thumb${i === 0 ? ' active' : ''}"
+                src="${url}"
+                alt="Vista ${i + 1}"
+                data-index="${i}"
+                onerror="this.style.display='none'"
+            />
+        `).join('');
+
+        thumbStrip.querySelectorAll('.product-thumb').forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                const idx = parseInt(thumb.dataset.index);
+                mainImg.style.opacity = '0';
+                setTimeout(() => {
+                    mainImg.src = allImages[idx];
+                    mainImg.style.opacity = '1';
+                }, 180);
+                thumbStrip.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+                thumb.classList.add('active');
+            });
+        });
+    }
+
+    // Badges
+    document.getElementById('product-condition-badge').textContent = product.condition || 'Segunda Mano';
+    document.getElementById('product-id-badge').textContent        = 'ID: ' + product.id.slice(0,8).toUpperCase();
+
+    // Info
+    document.getElementById('product-name').textContent        = product.name;
+    document.getElementById('product-price').textContent       = CONFIG.CURRENCY + parseFloat(product.price).toFixed(2);
+    document.getElementById('product-description').textContent = product.description || 'Pieza de archivo curada.';
+    document.getElementById('product-size-display').textContent = product.size || 'Único';
+
+    // Meta
+    const catName = CATEGORY_NAMES[product.category] || product.category;
+    document.getElementById('product-category-label').textContent = catName;
+    document.getElementById('product-status-label').textContent   = STATUS_LABELS[product.status] || product.status;
+
+    // CTAs según status
+    const ctaSection = document.getElementById('product-cta-section');
+    const alreadyInCart = isInCart(product.id);
+
+    if (product.status === 'available') {
+        if (alreadyInCart) {
+            ctaSection.innerHTML = `
+            <a href="cart.html"
+               class="w-full py-6 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:scale-[1.01] transition-transform">
+               <span>Ver Carrito</span>
+               <span class="material-symbols-outlined text-lg">shopping_bag</span>
+            </a>
+            <button onclick="openWhatsAppForProduct(${JSON.stringify(product).replace(/"/g,'&quot;')})"
+               class="w-full py-6 bg-surface-container-lowest font-headline font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-surface-container-low border-b border-transparent hover:border-outline-variant transition-all">
+               <span class="material-symbols-outlined text-lg">chat</span>
+               <span>Consultar por WhatsApp</span>
+            </button>`;
+        } else {
+            ctaSection.innerHTML = `
+            <button
+               data-cart-btn="${product.id}"
+               onclick="addToCart('${product.id}').then(() => loadProduct())"
+               class="w-full py-6 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:scale-[1.01] active:scale-95 transition-all">
+               <span>Agregar al Carrito</span>
+               <span class="material-symbols-outlined text-lg">shopping_bag</span>
+            </button>
+            <button onclick="openWhatsAppForProduct(${JSON.stringify(product).replace(/"/g,'&quot;')})"
+               class="w-full py-6 bg-surface-container-lowest font-headline font-bold text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:bg-surface-container-low border-b border-transparent hover:border-outline-variant transition-all">
+               <span class="material-symbols-outlined text-lg">chat</span>
+               <span>Consultar por WhatsApp</span>
+            </button>`;
+        }
+    } else if (product.status === 'reserved') {
+        ctaSection.innerHTML = `
+        <div class="w-full py-6 bg-surface-container font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 text-on-surface-variant cursor-not-allowed">
+            <span class="material-symbols-outlined text-lg">hourglass_empty</span>
+            <span>Reservado</span>
+        </div>
+        <p class="text-xs text-on-surface-variant font-body text-center opacity-60">Esta pieza está siendo reservada por otro cliente.</p>`;
+    } else {
+        ctaSection.innerHTML = `
+        <div class="w-full py-6 bg-error-container/20 font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 text-error cursor-not-allowed">
+            <span class="material-symbols-outlined text-lg">block</span>
+            <span>Vendido</span>
+        </div>
+        <p class="text-xs text-on-surface-variant font-body text-center opacity-60">Esta pieza ya encontró su nuevo hogar.</p>`;
+    }
+
+    // Mostrar contenido
+    document.getElementById('product-loading').classList.add('hidden');
+    document.getElementById('product-content').classList.remove('hidden');
+    document.getElementById('product-content').classList.add('grid');
+
+    // Cargar productos relacionados
+    const related = await fetchProductsByCategory(product.category, product.id);
+    if (related.length > 0) {
+        document.getElementById('related-grid').innerHTML = related.map(createProductCard).join('');
+        document.getElementById('related-section').classList.remove('hidden');
+    }
+}
+
+function showError() {
+    document.getElementById('product-loading').classList.add('hidden');
+    document.getElementById('product-error').classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadProduct();
+    updateCartBadge();
+});
+</script>
+</body>
+</html>

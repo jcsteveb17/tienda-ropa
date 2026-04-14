@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Arma tu Conjunto — ARCHIVE</title>
+<meta name="description" content="Arma el conjunto perfecto para ti seleccionando prendas de cada categoría y visualizando el resultado final."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+/* Estilos específicos para la silueta del Outfit Builder */
+.outfit-slot {
+    position: relative;
+    width: 100%;
+    border: 2px dashed rgba(172, 173, 173, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9f9;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+.outfit-slot.filled {
+    border-style: solid;
+    border-color: transparent;
+    background-color: transparent;
+}
+.outfit-slot-head { height: 120px; max-width: 150px; margin: 0 auto; border-radius: 50%; }
+.outfit-slot-torso { height: 280px; max-width: 260px; margin: 10px auto; border-radius: 20px 20px 10px 10px;}
+.outfit-slot-legs { height: 350px; max-width: 220px; margin: 10px auto; border-radius: 10px 10px 0 0;}
+.outfit-slot-feet { height: 100px; max-width: 260px; margin: 10px auto; border-radius: 0 0 20px 20px;}
+
+.outfit-slot img.item-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    mix-blend-mode: multiply; /* Para combinar mejor con el fondo */
+}
+.slot-placeholder {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #acadad;
+    text-align: center;
+}
+.outfit-remove-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.outfit-slot:hover .outfit-remove-btn {
+    opacity: 1;
+}
+
+</style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<div id="nav-container"></div>
+
+<main class="min-h-screen pb-20">
+
+    <section class="pt-16 pb-8 px-6 max-w-screen-2xl mx-auto text-center md:text-left">
+        <h1 class="text-5xl md:text-7xl font-headline font-black tracking-tighter uppercase">Arma Tu Conjunto</h1>
+        <p class="text-on-surface-variant font-body mt-2">Construye una silueta completa sumando piezas de nuestro archivo.</p>
+    </section>
+
+    <!-- UI Divider -->
+    <div class="h-px w-full bg-outline-variant/20 mb-8"></div>
+
+    <section class="max-w-screen-2xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        
+        <!-- ================= PANEL IZQUIERDO: INVENTARIO ================= -->
+        <div class="lg:col-span-8">
+            
+            <!-- Barra de Filtros del Inventario -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-surface-container-low p-4 rounded-sm border border-outline-variant/10">
+                <div class="flex gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+                    <button class="outfit-filter-btn px-4 py-2 bg-on-surface text-white font-headline text-[10px] font-bold uppercase tracking-widest rounded-full" data-filter="all">Ver Todo</button>
+                    <button class="outfit-filter-btn px-4 py-2 bg-white border border-outline-variant/30 text-on-surface font-headline text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-surface-container-lowest" data-filter="headwear">Cabeza/Gafas</button>
+                    <button class="outfit-filter-btn px-4 py-2 bg-white border border-outline-variant/30 text-on-surface font-headline text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-surface-container-lowest" data-filter="outerwear">Torso</button>
+                    <button class="outfit-filter-btn px-4 py-2 bg-white border border-outline-variant/30 text-on-surface font-headline text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-surface-container-lowest" data-filter="bottoms">Piernas</button>
+                    <button class="outfit-filter-btn px-4 py-2 bg-white border border-outline-variant/30 text-on-surface font-headline text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-surface-container-lowest" data-filter="footwear">Pies</button>
+                    <button class="outfit-filter-btn px-4 py-2 bg-white border border-outline-variant/30 text-on-surface font-headline text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-surface-container-lowest" data-filter="accessories">Accesorios/Bolsos</button>
+                </div>
+                <div class="relative max-w-xs w-full md:w-auto hidden md:block">
+                    <span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-on-surface-variant scale-75">search</span>
+                    <input
+                        id="outfit-search"
+                        type="text"
+                        placeholder="Buscar prendas..."
+                        class="w-full bg-transparent border-b border-outline-variant/30 pl-6 pr-2 py-1 font-body text-xs focus:outline-none focus:border-secondary transition-colors"
+                        autocomplete="off"
+                    />
+                </div>
+            </div>
+
+            <!-- Grilla Dinámica de Ropa -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6" id="outfit-products-grid">
+                <!-- Se inyecta por JS -->
+            </div>
+            
+        </div>
+
+        <!-- ================= PANEL DERECHO: EL LIENZO ================= -->
+        <div class="lg:col-span-4 sticky top-[100px] bg-surface-container-lowest p-6 pt-10 editorial-shadow rounded-sm text-center">
+            
+            <h2 class="font-headline font-black uppercase text-xl tracking-tight mb-8">Tu Silueta</h2>
+            
+            <!-- Lienzo visual -->
+            <div id="outfit-canvas" class="space-y-1 mb-8">
+                <!-- SLOT CABEZA/ROSTRO -->
+                <div id="slot-headwear" class="outfit-slot outfit-slot-head">
+                    <span class="slot-placeholder tracking-widest"><span class="material-symbols-outlined block mb-1">face</span>Cabeza/Rostro</span>
+                </div>
+                
+                <!-- SLOT TORSO -->
+                <div id="slot-outerwear" class="outfit-slot outfit-slot-torso">
+                    <span class="slot-placeholder tracking-widest"><span class="material-symbols-outlined block mb-1">styler</span>Torso</span>
+                </div>
+                
+                <!-- SLOT PIERNAS -->
+                <div id="slot-bottoms" class="outfit-slot outfit-slot-legs">
+                    <span class="slot-placeholder tracking-widest"><span class="material-symbols-outlined block mb-1">steps</span>Piernas</span>
+                </div>
+
+                <!-- SLOT PIES -->
+                <div id="slot-footwear" class="outfit-slot outfit-slot-feet">
+                    <span class="slot-placeholder tracking-widest"><span class="material-symbols-outlined block mb-1">directions_walk</span>Pies</span>
+                </div>
+
+                <!-- SLOT ACCESORIOS (BOLSOS, RELOJES) -->
+                <div id="slot-accessories" class="outfit-slot" style="height: 100px; max-width: 260px; margin: 10px auto; border-radius: 10px;">
+                    <span class="slot-placeholder tracking-widest"><span class="material-symbols-outlined block mb-1">shopping_bag</span>Bolsos / Extras</span>
+                </div>
+            </div>
+
+            <!-- Resumen y checkout del conjunto -->
+            <div class="border-t border-outline-variant/20 pt-6 space-y-4">
+                <div class="flex justify-between items-center px-2">
+                    <span class="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant">Total Estimado</span>
+                    <span id="outfit-total" class="font-headline font-black text-2xl">$0.00</span>
+                </div>
+                <button
+                    id="btn-add-outfit"
+                    class="w-full py-5 bg-on-surface text-white font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-secondary transition-colors"
+                >
+                    <span class="material-symbols-outlined text-lg">shopping_bag</span>
+                    Añadir todo al Carrito
+                </button>
+                <button
+                    id="btn-clear-outfit"
+                    class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:text-error transition-colors mt-2"
+                >
+                    Limpiar Lienzo
+                </button>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div id="footer-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/app.js"></script>
+<!-- Logic for the builder -->
+<script src="js/outfit.js"></script>
+<script>
+    document.getElementById('nav-container').innerHTML = getNavHTML('outfit');
+    document.getElementById('footer-container').innerHTML = getFooterHTML();
+    document.title = 'Arma Tu Conjunto — ' + CONFIG.STORE_NAME;
+</script>
+</body>
+</html>

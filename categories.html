@@ -1,0 +1,142 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Categorías — ARCHIVE</title>
+<meta name="description" content="Explora nuestra colección por categoría: Abrigos, Calzado, Accesorios y Pantalones."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<div id="nav-container"></div>
+
+<main>
+
+<!-- ===== HEADER ===== -->
+<section class="pt-16 pb-12 px-6 max-w-screen-2xl mx-auto text-center">
+    <h1 class="text-6xl md:text-8xl font-headline font-black tracking-tighter uppercase mb-4">
+        Explorar Categorías
+    </h1>
+    <p class="text-on-surface-variant font-body text-lg max-w-xl mx-auto">
+        Encuentra tu estilo en nuestras colecciones curadas de archivo.
+    </p>
+</section>
+
+<!-- ===== BENTO GRID ===== -->
+<section class="pb-20 px-6 max-w-screen-2xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6" style="grid-template-rows: 380px 380px;">
+
+        <!-- Abrigos — 8 col, full height left -->
+        <a href="shop.html?category=outerwear" class="category-hero-card md:col-span-8 md:row-span-2">
+            <img
+                alt="Colección Abrigos — Moda de segunda mano vintage"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBpDjZpyG5EVjoMa3-_wnF6X0nLkJobYKOAFN0MiXhbWuzY5cr6nh_ELqDXFKRMHkZJ5aeNuKjmmzRAxDy4pUXDW5rpZQTCVchdGuD1eIVfglBvu8xbk4m82ijvtE3uWU2EEJpusleMDcWLMX8kKI-5BSWXZ4nM99RqCj-oTV_BQzHgBkp8AbMB-fSCiwCvrSX07M2v-AsINtMl0EhWIkONbBB6d4o3f3lAhP6ZjrkcenzNeyRMjCHFUu67JgbJHxCL4RG4pyrLSIT"
+            />
+            <div class="category-hero-card-overlay flex-col gap-3">
+                <span class="text-white font-headline text-5xl md:text-7xl font-black uppercase tracking-tighter">Abrigos</span>
+                <span id="count-outerwear" class="category-hero-card-count">Cargando...</span>
+            </div>
+        </a>
+
+        <!-- Calzado — 4 col, row 1 -->
+        <a href="shop.html?category=footwear" class="category-hero-card md:col-span-4">
+            <img
+                alt="Colección Calzado — Zapatillas y botas vintage"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2oqY5lD_k0SP69WpjRc2pJGIgAS5igBrlbDOMwiT5N4JbC5VxaZ_ZjNlkskBPfaFnS9YvbsT_WmyKe5dNoDDMDcWp5aAzd01qpwzGKK75PCNBUQKLgNOyldyGgmoBnlizPzTnxsJH1deMN4uZ5gUv-kwz2G9LjhzYkElc_mGJQthueP4WACM42X65VOJCKaMnAfhKCi-8g-D-LDD_4TJ6u2UkgujGquStZFAmmdKMR6EBOJNpQQIWSo3dsZX6WtAGvehg7OmndCb_"
+            />
+            <div class="category-hero-card-overlay">
+                <span class="text-white font-headline text-3xl md:text-4xl font-black uppercase tracking-tighter">Calzado</span>
+                <span id="count-footwear" class="category-hero-card-count">Cargando...</span>
+            </div>
+        </a>
+
+        <!-- Accesorios — 2 col, row 2 -->
+        <a href="shop.html?category=accessories" class="category-hero-card md:col-span-2">
+            <img
+                alt="Colección Accesorios — Bolsos y complementos vintage"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaf1yrKXjOgyUniuSbChyU96uPe--HMHRRLNnbd41LOahVauxxfjOlTjerkXyQjIhJfbNHsQygZTquZN5Fto26lVtY-cKNkru6oL9XUaXphxKHICTmCLwPfKifxYhKmjIR0HnEyRkU-niyEDJA8uyemu1PtzfvhGJqBn0wgd2DYr-1uReyTjF1CfCbW2ZFoQHci3mO_iKsMocJKPK7rApG36abFV1NiUvCzpuw1KjhEaz4hW-ILFJLAcpPV3Nz5edwWWrORrV8WHvH"
+            />
+            <div class="category-hero-card-overlay">
+                <span class="text-white font-headline text-xl font-black uppercase tracking-tighter text-center px-2">Accesorios</span>
+                <span id="count-accessories" class="category-hero-card-count">Cargando...</span>
+            </div>
+        </a>
+
+        <!-- Pantalones — 2 col, row 2 -->
+        <a href="shop.html?category=bottoms" class="category-hero-card md:col-span-2">
+            <img
+                alt="Colección Pantalones — Denim y pantalones vintage"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQOxl445mFK2xhNyJgXDBLGfFvYCOvhuh5kGEPc2yC95ym9KEcs9d37PTqQBZYC4SMXzTMl3w0CMav2UJ2P_wPg9YjR10opO3e1L7YrltSKunbkm0z0DhNokvNh2e5sIdy96vbF2nNYWak1ppbEr8JqMuPkeMz6cB6g1JlC6J9bJiG80OWg7WEeOyTL5DysgXoLykUuOMvYL_aMWrJZH57qqgZ8g99TSGNlPAkpXrjr33gqRbsE-w00wHpQYAH1C_yEw7A1IbQqe9S"
+            />
+            <div class="category-hero-card-overlay">
+                <span class="text-white font-headline text-xl font-black uppercase tracking-tighter text-center px-2">Pantalones</span>
+                <span id="count-bottoms" class="category-hero-card-count">Cargando...</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- ===== CTA STRIP ===== -->
+<section class="py-20 bg-on-surface">
+    <div class="max-w-screen-2xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div>
+            <p class="font-headline font-black text-xs uppercase tracking-widest text-secondary mb-2">Todo el Archivo</p>
+            <h2 class="text-3xl font-headline font-black text-white tracking-tighter uppercase">¿No encontraste tu categoría?</h2>
+            <p class="text-white/60 font-body mt-2">Explora toda la tienda y aplica los filtros que necesites.</p>
+        </div>
+        <a href="shop.html"
+           class="px-12 py-5 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap flex-shrink-0">
+            Ver Todas las Piezas →
+        </a>
+    </div>
+</section>
+
+</main>
+
+<div id="footer-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/whatsapp.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.getElementById('nav-container').innerHTML    = getNavHTML('categorias');
+document.getElementById('footer-container').innerHTML = getFooterHTML();
+document.title = 'Categorías — ' + CONFIG.STORE_NAME;
+
+// Cargar conteos de productos por categoría
+async function loadCategoryCounts() {
+    const categories = [
+        { id: 'outerwear',   elId: 'count-outerwear'   },
+        { id: 'footwear',    elId: 'count-footwear'     },
+        { id: 'accessories', elId: 'count-accessories'  },
+        { id: 'bottoms',     elId: 'count-bottoms'      },
+    ];
+
+    await Promise.all(categories.map(async cat => {
+        const count = await countProductsByCategory(cat.id);
+        const el    = document.getElementById(cat.elId);
+        if (el) {
+            el.textContent = count === 0
+                ? 'Sin piezas disponibles'
+                : `${count} ${count === 1 ? 'pieza disponible' : 'piezas disponibles'}`;
+        }
+    }));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    loadCategoryCounts();
+    updateCartBadge();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carrito — ARCHIVE</title>
+<meta name="description" content="Tu carrito de compras. Revisa tus piezas seleccionadas y compra por WhatsApp."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<div id="nav-container"></div>
+
+<main class="max-w-screen-lg mx-auto px-6 py-16 min-h-[70vh]">
+
+    <!-- Header -->
+    <div class="mb-12">
+        <h1 class="text-5xl font-headline font-black tracking-tighter uppercase">Tu Carrito</h1>
+        <p id="cart-subtitle" class="text-on-surface-variant font-body mt-2"></p>
+    </div>
+
+    <!-- Empty state -->
+    <div id="cart-empty" class="hidden py-24 text-center">
+        <span class="material-symbols-outlined block" style="font-size:5rem;color:#acadad;margin-bottom:1.5rem">shopping_bag</span>
+        <h2 class="text-2xl font-headline font-black uppercase tracking-tight mb-3">Tu carrito está vacío</h2>
+        <p class="text-on-surface-variant font-body mb-8 max-w-md mx-auto">Todavía no has agregado ninguna pieza. Explora nuestra colección y encuentra algo que te inspire.</p>
+        <a href="shop.html"
+            class="inline-flex items-center gap-3 px-10 py-5 bg-on-surface text-white font-headline font-black uppercase tracking-widest hover:bg-secondary transition-colors">
+            Explorar Tienda <span class="material-symbols-outlined">arrow_right_alt</span>
+        </a>
+    </div>
+
+    <!-- Cart with items -->
+    <div id="cart-with-items" class="hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+
+            <!-- Items list -->
+            <div class="lg:col-span-2">
+                <div id="cart-items-list" class="space-y-0">
+                    <!-- Items generados por JS -->
+                </div>
+                <!-- Actions below list -->
+                <div class="mt-8 flex gap-6">
+                    <button
+                        id="btn-clear-cart"
+                        class="font-headline text-xs font-bold uppercase tracking-widest text-on-surface-variant underline underline-offset-4 hover:text-error transition-colors">
+                        Vaciar Carrito
+                    </button>
+                    <a href="shop.html"
+                        class="font-headline text-xs font-bold uppercase tracking-widest text-secondary underline underline-offset-4 hover:text-secondary-dim transition-colors">
+                        Seguir Comprando
+                    </a>
+                </div>
+            </div>
+
+            <!-- Summary / Checkout -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-32 bg-surface-container-lowest p-8 space-y-6 editorial-shadow">
+                    <h2 class="font-headline font-black text-lg uppercase tracking-tight">Resumen</h2>
+
+                    <div class="space-y-3" id="cart-summary-items">
+                        <!-- Resumen de items -->
+                    </div>
+
+                    <div class="border-t border-outline-variant/20 pt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="font-headline font-black text-sm uppercase tracking-wider">Total</span>
+                            <span id="cart-total" class="font-headline font-black text-2xl">$0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp CTA — Main -->
+                    <button
+                        id="btn-whatsapp-checkout"
+                        onclick="openWhatsApp()"
+                        class="w-full py-5 bg-secondary-fixed text-on-secondary-fixed font-headline font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 hover:scale-[1.02] active:scale-95 transition-all">
+                        <span class="material-symbols-outlined">chat</span>
+                        Comprar por WhatsApp
+                    </button>
+
+                    <p class="text-xs text-on-surface-variant font-body text-center opacity-60 leading-relaxed">
+                        Al hacer clic abrirás WhatsApp con tu pedido ya redactado. Nuestro equipo te responderá en breve para coordinar el pago y envío.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div id="footer-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/whatsapp.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.getElementById('nav-container').innerHTML    = getNavHTML('');
+document.getElementById('footer-container').innerHTML = getFooterHTML();
+document.title = 'Carrito — ' + CONFIG.STORE_NAME;
+
+function createCartItemRow(item) {
+    const code  = item.id.slice(0, 8).toUpperCase();
+    const price = parseFloat(item.price).toFixed(2);
+    return `
+    <div class="cart-item-row" id="cart-row-${item.id}">
+        <a href="product.html?id=${item.id}">
+            <img
+                class="cart-item-thumb"
+                src="${item.image_url || CONFIG.FALLBACK_IMAGE}"
+                alt="${item.name}"
+                onerror="this.src='${CONFIG.FALLBACK_IMAGE}'"
+            />
+        </a>
+        <div>
+            <a href="product.html?id=${item.id}" class="block">
+                <h3 class="font-headline font-bold text-sm uppercase tracking-tight hover:text-secondary transition-colors">${item.name}</h3>
+            </a>
+            <p class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant mt-1">
+                Código: ${code}${item.size ? ' • Talla: ' + item.size : ''}
+            </p>
+        </div>
+        <div class="text-right flex flex-col items-end gap-3">
+            <span class="font-headline font-bold text-sm">${CONFIG.CURRENCY}${price}</span>
+            <button
+                onclick="handleRemoveFromCart('${item.id}')"
+                class="font-label text-[10px] font-bold uppercase tracking-widest text-on-surface-variant hover:text-error transition-colors underline underline-offset-2">
+                Quitar
+            </button>
+        </div>
+    </div>`;
+}
+
+function renderCart() {
+    const cart = getCart();
+    const cartEmpty     = document.getElementById('cart-empty');
+    const cartWithItems = document.getElementById('cart-with-items');
+    const subtitle      = document.getElementById('cart-subtitle');
+
+    if (cart.length === 0) {
+        cartEmpty.classList.remove('hidden');
+        cartWithItems.classList.add('hidden');
+        subtitle.textContent = 'Todavía no hay ninguna pieza aquí.';
+        return;
+    }
+
+    cartEmpty.classList.add('hidden');
+    cartWithItems.classList.remove('hidden');
+    subtitle.textContent = `${cart.length} ${cart.length === 1 ? 'pieza' : 'piezas'} seleccionadas`;
+
+    // Render items
+    document.getElementById('cart-items-list').innerHTML = cart.map(createCartItemRow).join('');
+
+    // Render summary
+    const summaryHTML = cart.map(item =>
+        `<div class="flex justify-between items-start gap-3">
+            <span class="font-body text-sm text-on-surface-variant truncate flex-1">${item.name}</span>
+            <span class="font-headline font-bold text-sm whitespace-nowrap">${CONFIG.CURRENCY}${parseFloat(item.price).toFixed(2)}</span>
+        </div>`
+    ).join('');
+    document.getElementById('cart-summary-items').innerHTML = summaryHTML;
+
+    // Total
+    document.getElementById('cart-total').textContent = CONFIG.CURRENCY + getCartTotal().toFixed(2);
+}
+
+async function handleRemoveFromCart(productId) {
+    const row = document.getElementById('cart-row-' + productId);
+    if (row) row.style.opacity = '0.4';
+    await removeFromCart(productId);
+    renderCart();
+    updateCartBadge();
+}
+
+document.getElementById('btn-clear-cart')?.addEventListener('click', async () => {
+    if (!confirm('¿Seguro que quieres vaciar el carrito? Los productos volverán a estar disponibles.')) return;
+    await clearCart();
+    renderCart();
+    updateCartBadge();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderCart();
+    updateCartBadge();
+});
+</script>
+</body>
+</html>

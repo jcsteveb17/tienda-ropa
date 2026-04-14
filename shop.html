@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html class="scroll-smooth" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tienda — ARCHIVE | Todas las Piezas</title>
+<meta name="description" content="Explora toda nuestra selección de ropa vintage y de segunda mano. Filtra por categoría, precio y condición."/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="css/styles.css" rel="stylesheet"/>
+<script src="js/tailwind-init.js"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<div id="nav-container"></div>
+
+<main>
+
+<!-- ===== PAGE HEADER ===== -->
+<section class="pt-16 pb-8 px-6 max-w-screen-2xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+            <h1 class="text-5xl md:text-7xl font-headline font-black tracking-tighter uppercase">Tienda</h1>
+            <p class="text-on-surface-variant font-body mt-2">Todas las piezas disponibles en nuestro archivo.</p>
+        </div>
+        <!-- Search inline -->
+        <div class="relative max-w-sm w-full">
+            <span class="material-symbols-outlined absolute left-0 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input
+                id="shop-search-inline"
+                type="text"
+                placeholder="Buscar piezas..."
+                class="w-full bg-transparent border-b-2 border-outline-variant/25 pl-8 pr-4 py-2 font-body text-sm focus:outline-none focus:border-secondary transition-colors"
+                autocomplete="off"
+            />
+        </div>
+    </div>
+    <p id="product-count" class="font-label text-xs font-bold uppercase tracking-widest text-on-surface-variant mt-4 opacity-60"></p>
+</section>
+
+<!-- ===== FILTER & SORT BAR ===== -->
+<div class="bg-surface-container-low py-5 sticky top-[72px] z-40 border-y border-outline-variant/10">
+    <div class="max-w-screen-2xl mx-auto px-6 flex flex-wrap items-center justify-between gap-4">
+
+        <div class="flex flex-wrap items-center gap-3">
+
+            <!-- Categoría -->
+            <div class="filter-btn-wrapper">
+                <button data-dropdown-toggle="dd-category"
+                    class="flex items-center gap-2 px-5 py-2 bg-surface-container-lowest rounded-full font-headline text-xs font-bold uppercase tracking-wider border border-outline-variant/20 transition-colors">
+                    <span id="filter-category-label">Categoría</span>
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+                <div id="dd-category" class="filter-dropdown-menu">
+                    <button class="filter-dropdown-item" data-filter-category="">Todas las categorías</button>
+                    <!-- Categorías se inyectan desde JS -->
+                </div>
+            </div>
+
+            <!-- Precio -->
+            <div class="filter-btn-wrapper">
+                <button data-dropdown-toggle="dd-price"
+                    class="flex items-center gap-2 px-5 py-2 bg-surface-container-lowest rounded-full font-headline text-xs font-bold uppercase tracking-wider border border-outline-variant/20 transition-colors">
+                    <span id="filter-price-label">Precio</span>
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+                <div id="dd-price" class="filter-dropdown-menu">
+                    <button class="filter-dropdown-item" data-filter-price="menos-50">Menos de $50</button>
+                    <button class="filter-dropdown-item" data-filter-price="50-100">$50 — $100</button>
+                    <button class="filter-dropdown-item" data-filter-price="100-200">$100 — $200</button>
+                    <button class="filter-dropdown-item" data-filter-price="mas-200">Más de $200</button>
+                </div>
+            </div>
+
+            <!-- Condición -->
+            <div class="filter-btn-wrapper">
+                <button data-dropdown-toggle="dd-condition"
+                    class="flex items-center gap-2 px-5 py-2 bg-surface-container-lowest rounded-full font-headline text-xs font-bold uppercase tracking-wider border border-outline-variant/20 transition-colors">
+                    <span id="filter-condition-label">Condición</span>
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+                <div id="dd-condition" class="filter-dropdown-menu">
+                    <!-- Condiciones se inyectan desde JS -->
+                </div>
+            </div>
+
+            <div class="h-6 w-px bg-outline-variant/30 hidden md:block"></div>
+            <button id="btn-clear-filters"
+                class="text-xs font-headline font-bold uppercase tracking-widest text-secondary underline underline-offset-4 hover:text-secondary-dim transition-colors">
+                Limpiar
+            </button>
+        </div>
+
+        <!-- Sort -->
+        <div class="flex items-center gap-3">
+            <span class="text-xs font-headline font-bold uppercase tracking-widest opacity-50">Ordenar Por:</span>
+            <div class="filter-btn-wrapper">
+                <button data-dropdown-toggle="dd-sort"
+                    class="flex items-center gap-2 font-headline text-xs font-bold uppercase tracking-wider">
+                    <span id="filter-sort-label">Más Recientes</span>
+                    <span class="material-symbols-outlined text-sm">expand_more</span>
+                </button>
+                <div id="dd-sort" class="filter-dropdown-menu" style="right:0;left:auto">
+                    <button class="filter-dropdown-item filter-btn-active" data-filter-sort="newest">Más Recientes</button>
+                    <button class="filter-dropdown-item" data-filter-sort="asc">Precio: Menor a Mayor</button>
+                    <button class="filter-dropdown-item" data-filter-sort="desc">Precio: Mayor a Menor</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ===== PRODUCT GRID ===== -->
+<section class="py-16 px-6 max-w-screen-2xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="product-grid">
+        <!-- Cargado dinámicamente -->
+    </div>
+</section>
+
+</main>
+
+<div id="footer-container"></div>
+
+<script src="js/config.js"></script>
+<script src="js/supabase-client.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/whatsapp.js"></script>
+<script src="js/app.js"></script>
+<script>
+document.getElementById('nav-container').innerHTML    = getNavHTML('tienda');
+document.getElementById('footer-container').innerHTML = getFooterHTML();
+document.title = 'Tienda — ' + CONFIG.STORE_NAME + ' | Todas las Piezas';
+
+// Inyectar categorías en el dropdown
+const ddCat = document.getElementById('dd-category');
+CONFIG.CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-dropdown-item';
+    btn.dataset.filterCategory = cat.id;
+    btn.textContent = cat.name;
+    ddCat.appendChild(btn);
+});
+
+// Inyectar condiciones en el dropdown
+const ddCond = document.getElementById('dd-condition');
+CONFIG.CONDITIONS.forEach(cond => {
+    const btn = document.createElement('button');
+    btn.className = 'filter-dropdown-item';
+    btn.dataset.filterCondition = cond;
+    btn.textContent = cond;
+    ddCond.appendChild(btn);
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    initFilters();
+    renderProductGrid('product-grid', {});
+    updateCartBadge();
+});
+</script>
+</body>
+</html>

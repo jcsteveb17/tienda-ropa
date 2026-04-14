@@ -1,0 +1,712 @@
+/* =====================================================
+   WebRopa — Shared Stylesheet
+   Design System: "The Urban Archivist" — Organic Brutalism
+   ===================================================== */
+
+/* ---- Google Material Symbols ---- */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ---- Neon Accent Utilities ---- */
+.text-neon  { color: #c3f400; }
+.bg-neon    { background-color: #c3f400; }
+.border-neon { border-color: #c3f400; }
+
+/* ---- Editorial Shadow (Design System) ---- */
+.editorial-shadow {
+    box-shadow: 0px 24px 48px rgba(45, 47, 47, 0.06);
+}
+
+/* =====================================================
+   NOTIFICATION TOAST
+   ===================================================== */
+.notification-toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    min-width: 280px;
+    padding: 1rem 1.5rem;
+    background: #2d2f2f;
+    color: #f6f6f6;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 9999;
+    transform: translateY(150%);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-left: 4px solid transparent;
+}
+.notification-toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+.notification-toast.success { border-left-color: #c3f400; }
+.notification-toast.error   { border-left-color: #f95630; }
+.notification-toast.info    { border-left-color: #4e6300; }
+
+/* =====================================================
+   PRODUCT STATUS OVERLAYS
+   ===================================================== */
+.product-card-wrapper {
+    position: relative;
+}
+
+/* Reserved badge */
+.status-reserved-overlay,
+.status-sold-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+    pointer-events: none;
+}
+.status-reserved-overlay {
+    background: rgba(246, 246, 246, 0.3);
+}
+.status-sold-overlay {
+    background: rgba(246, 246, 246, 0.5);
+}
+.status-badge-text {
+    padding: 0.4rem 1.5rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 900;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transform: rotate(-15deg);
+}
+.badge-reserved {
+    background: #2d2f2f;
+    color: #f6f6f6;
+}
+.badge-sold {
+    background: #b02500;
+    color: #f6f6f6;
+}
+
+/* Disabled product card */
+.product-unavailable {
+    pointer-events: none;
+    opacity: 0.6;
+}
+.product-unavailable a {
+    pointer-events: auto;
+}
+
+/* =====================================================
+   CART BADGE
+   ===================================================== */
+.cart-btn-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.cart-badge-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #4e6300;
+    color: #e1ff88;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    line-height: 1;
+}
+.cart-badge-count.hidden {
+    display: none;
+}
+.cart-badge-count.bump {
+    transform: scale(1.5);
+}
+
+/* =====================================================
+   SKELETON LOADING
+   ===================================================== */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        #e7e8e8 25%,
+        #f0f1f1 50%,
+        #e7e8e8 75%
+    );
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 0.125rem;
+}
+@keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* =====================================================
+   MOBILE MENU
+   ===================================================== */
+.mobile-menu {
+    position: fixed;
+    inset: 0;
+    background: rgba(246, 246, 246, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    padding: 6rem 2rem 2rem;
+    gap: 0;
+}
+.mobile-menu.open {
+    transform: translateX(0);
+}
+.mobile-menu a {
+    display: block;
+    padding: 1.25rem 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #2d2f2f;
+    border-bottom: 1px solid rgba(172, 173, 173, 0.15);
+    transition: color 0.2s;
+    text-decoration: none;
+}
+.mobile-menu a:hover,
+.mobile-menu a.active {
+    color: #4e6300;
+}
+.mobile-menu-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* =====================================================
+   SEARCH OVERLAY
+   ===================================================== */
+.search-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(246, 246, 246, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    padding: 8rem 2rem 2rem;
+    transform: translateY(-100%);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.search-overlay.open {
+    transform: translateY(0);
+}
+.search-overlay-input {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Inter', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid #2d2f2f;
+    padding: 0.75rem 0;
+    outline: none;
+    color: #2d2f2f;
+}
+.search-overlay-input::placeholder {
+    color: #acadad;
+    font-weight: 400;
+}
+.search-overlay-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* =====================================================
+   ADMIN — Password Gate
+   ===================================================== */
+.admin-gate {
+    position: fixed;
+    inset: 0;
+    background: #f6f6f6;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+.admin-gate-box {
+    width: 100%;
+    max-width: 440px;
+    padding: 3rem;
+    background: #ffffff;
+    box-shadow: 0px 24px 48px rgba(45, 47, 47, 0.06);
+}
+.admin-gate-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2d2f2f;
+    margin-bottom: 0.5rem;
+}
+.admin-gate-subtitle {
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.875rem;
+    color: #5a5c5c;
+    margin-bottom: 2rem;
+}
+.admin-gate-error {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #f95630;
+    margin-top: 0.75rem;
+    display: none;
+}
+.admin-gate-error.show {
+    display: block;
+}
+
+/* =====================================================
+   ADMIN — Inputs & Forms
+   ===================================================== */
+.admin-input {
+    width: 100%;
+    padding: 0.875rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(172, 173, 173, 0.25);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    color: #2d2f2f;
+    transition: border-color 0.3s;
+    outline: none;
+    display: block;
+}
+.admin-input:focus {
+    border-bottom-color: #4e6300;
+}
+.admin-input::placeholder {
+    color: #acadad;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+.admin-select {
+    width: 100%;
+    padding: 0.875rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(172, 173, 173, 0.25);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #2d2f2f;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+.admin-select:focus {
+    border-bottom-color: #4e6300;
+}
+.admin-label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #acadad;
+    margin-bottom: 0.25rem;
+    margin-top: 1.25rem;
+}
+
+/* =====================================================
+   ADMIN — Image Drop Zone
+   ===================================================== */
+.drop-zone {
+    border: 2px dashed rgba(172, 173, 173, 0.35);
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    margin-top: 1.25rem;
+}
+.drop-zone:hover,
+.drop-zone.dragover {
+    border-color: #4e6300;
+    background: rgba(195, 244, 0, 0.04);
+}
+.drop-zone-icon {
+    font-size: 2.5rem;
+    color: #acadad;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s;
+}
+.drop-zone:hover .drop-zone-icon {
+    color: #4e6300;
+}
+.drop-zone-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #acadad;
+}
+.drop-zone-preview {
+    max-width: 240px;
+    max-height: 240px;
+    object-fit: cover;
+    margin: 1rem auto 0;
+    display: block;
+}
+
+/* =====================================================
+   ADMIN — Product List Table
+   ===================================================== */
+.admin-product-row {
+    display: grid;
+    grid-template-columns: 60px 1fr auto auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(172, 173, 173, 0.1);
+}
+.admin-product-thumb {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    background: #e7e8e8;
+}
+.admin-status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.4rem;
+}
+.status-available { background: #4e6300; }
+.status-reserved  { background: #f5a623; }
+.status-sold      { background: #b02500; }
+
+/* =====================================================
+   CONTACT FORM
+   ===================================================== */
+.contact-input {
+    width: 100%;
+    padding: 1rem 0;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(172, 173, 173, 0.25);
+    font-family: 'Manrope', sans-serif;
+    font-size: 0.9rem;
+    color: #2d2f2f;
+    transition: border-color 0.3s;
+    outline: none;
+    resize: none;
+}
+.contact-input:focus {
+    border-bottom-color: #4e6300;
+}
+.contact-input::placeholder {
+    color: #acadad;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+/* =====================================================
+   CART PAGE
+   ===================================================== */
+.cart-item-row {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(172, 173, 173, 0.1);
+}
+.cart-item-thumb {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    background: #e7e8e8;
+}
+
+/* =====================================================
+   FILTER DROPDOWNS
+   ===================================================== */
+.filter-dropdown-menu {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    background: #ffffff;
+    min-width: 200px;
+    padding: 0.5rem 0;
+    box-shadow: 0px 24px 48px rgba(45, 47, 47, 0.1);
+    z-index: 90;
+    display: none;
+}
+.filter-dropdown-menu.open {
+    display: block;
+}
+.filter-dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2d2f2f;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+.filter-dropdown-item:hover {
+    background: #f0f1f1;
+}
+.filter-dropdown-item.active {
+    color: #4e6300;
+    background: rgba(195, 244, 0, 0.08);
+}
+.filter-btn-wrapper {
+    position: relative;
+}
+.filter-btn-active {
+    background: #c3f400 !important;
+    color: #354500 !important;
+    border-color: transparent !important;
+}
+
+/* =====================================================
+   CATEGORY PAGE — Large Bento Cards
+   ===================================================== */
+.category-hero-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+}
+.category-hero-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.category-hero-card:hover img {
+    transform: scale(1.05);
+}
+.category-hero-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+.category-hero-card:hover .category-hero-card-overlay {
+    background: rgba(0,0,0,0.55);
+}
+.category-hero-card-count {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c3f400;
+    margin-top: 0.5rem;
+}
+
+/* =====================================================
+   ABOUT PAGE
+   ===================================================== */
+.process-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+.process-step-number {
+    width: 48px;
+    height: 48px;
+    border: 2px solid #c3f400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    color: #4e6300;
+    flex-shrink: 0;
+}
+
+/* =====================================================
+   PRODUCT DETAIL
+   ===================================================== */
+.size-btn {
+    transition: all 0.2s;
+}
+.size-btn.selected {
+    border-bottom: 2px solid #4e6300!important;
+    background: #ffffff;
+    box-shadow: 0px 24px 48px rgba(45,47,47,0.06);
+}
+
+/* =====================================================
+   EMPTY STATE
+   ===================================================== */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+.empty-state-icon {
+    font-size: 4rem;
+    color: #acadad;
+    margin-bottom: 1.5rem;
+}
+
+/* =====================================================
+   ADMIN — Extra Image Slots
+   ===================================================== */
+.extra-img-slot {
+    aspect-ratio: 3/4;
+    border: 2px dashed rgba(172, 173, 173, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, background 0.3s;
+    background: transparent;
+}
+.extra-img-slot:hover {
+    border-color: #4e6300;
+    background: rgba(195, 244, 0, 0.04);
+}
+.extra-img-slot.filled {
+    border-style: solid;
+    border-color: rgba(172, 173, 173, 0.2);
+}
+.extra-img-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.extra-img-slot .slot-remove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    background: rgba(45,47,47,0.85);
+    color: #f6f6f6;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 1;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.extra-img-slot.filled:hover .slot-remove {
+    opacity: 1;
+}
+.extra-img-slot .slot-add-icon {
+    color: #acadad;
+    transition: color 0.3s;
+    font-size: 1.5rem;
+}
+.extra-img-slot:hover .slot-add-icon {
+    color: #4e6300;
+}
+
+/* =====================================================
+   PRODUCT DETAIL — Image Gallery
+   ===================================================== */
+.product-gallery-main {
+    position: relative;
+    overflow: hidden;
+    background: #f0f1f1;
+}
+.product-gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.35s ease;
+}
+.product-thumb-strip {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    flex-wrap: wrap;
+}
+.product-thumb {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s, opacity 0.2s;
+    opacity: 0.65;
+    background: #e7e8e8;
+    flex-shrink: 0;
+}
+.product-thumb:hover {
+    opacity: 1;
+}
+.product-thumb.active {
+    border-color: #4e6300;
+    opacity: 1;
+}
+
