@@ -17,6 +17,11 @@ html, body {
     position: relative !important;
     top: auto !important;
 }
+/* Elementos que deben quedar sticky justo debajo del navbar */
+.sticky-below-nav {
+    position: sticky;
+    top: var(--nav-h, 64px);
+}
 
 /* ---- Google Material Symbols ---- */
 .material-symbols-outlined {

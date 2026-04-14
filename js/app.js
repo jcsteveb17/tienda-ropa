@@ -267,4 +267,16 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCartBadge();
     _initMobileMenu();
     _initSearch();
+
+    // Calcular altura del navbar para elementos sticky-below-nav
+    setTimeout(() => {
+        const navContainer = document.getElementById('nav-container');
+        if (navContainer) {
+            const setNavHeight = () => {
+                document.documentElement.style.setProperty('--nav-h', `${navContainer.offsetHeight}px`);
+            };
+            setNavHeight();
+            window.addEventListener('resize', setNavHeight);
+        }
+    }, 50); // Pequeño retraso para asegurar que los scripts inline hayan inyectado el nav
 });
