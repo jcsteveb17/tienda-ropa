@@ -6,9 +6,12 @@ const CONFIG = {
     SUPABASE_URL: 'https://qvzccihanhyyjxmuaccw.supabase.co',
     SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF2emNjaWhhbmh5eWp4bXVhY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUzNDMwMTksImV4cCI6MjA5MDkxOTAxOX0.4y86LqjdLpamsvNmMwE1kXGddMWcLvGBfzwW6GqGkho',
 
-    // --- URL base del sitio (terminar con /) ---
-    // GitHub Pages: '/tienda-ropa/'   |   VPS con dominio propio: '/'
-    SITE_BASE: '/tienda-ropa/',
+    // --- URL base del sitio (auto-detectada) ---
+    // GitHub Pages → /tienda-ropa/  |  VPS o servidor local → /
+    SITE_BASE: (function() {
+        if (window.location.hostname === 'jcsteveb17.github.io') return '/tienda-ropa/';
+        return '/'; // VPS con dominio propio o servidor local
+    })(),
 
     // --- WhatsApp (ver SETUP.md sección 2) ---
     WHATSAPP_PHONE: '593996109482',                        // ← Cambiar (ver SETUP.md)

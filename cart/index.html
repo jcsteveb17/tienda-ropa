@@ -8,43 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <link href="../css/styles.css" rel="stylesheet"/>
-<script>
-// Tailwind config — debe estar ANTES del CDN
-window.tailwind = { config: {
-    darkMode: "class",
-    theme: { extend: {
-        colors: {
-            "error-container":"#f95630","error":"#b02500","surface-container":"#e7e8e8",
-            "on-secondary-fixed":"#354500","surface-tint":"#5b5b5b","outline":"#767777",
-            "surface-container-highest":"#dbdddd","secondary-container":"#c3f400",
-            "on-primary-container":"#575757","on-primary-fixed":"#444444",
-            "on-tertiary-fixed-variant":"#6e6d6d","surface-container-high":"#e1e3e3",
-            "primary-container":"#ebebeb","on-primary":"#f3f3f3",
-            "surface-container-lowest":"#ffffff","tertiary-dim":"#504f4f",
-            "secondary-fixed":"#c3f400","surface-variant":"#dbdddd","surface-dim":"#d3d5d5",
-            "surface-bright":"#f6f6f6","primary":"#5b5b5b","primary-fixed-dim":"#dddddd",
-            "inverse-primary":"#ffffff","on-error-container":"#520c00",
-            "on-secondary-container":"#455900","on-error":"#ffefec","primary-dim":"#4f4f4f",
-            "tertiary-fixed":"#ffffff","error-dim":"#b92902","secondary-fixed-dim":"#b7e500",
-            "on-tertiary":"#f5f2f1","secondary-dim":"#435600","on-surface":"#2d2f2f",
-            "surface-container-low":"#f0f1f1","inverse-surface":"#0c0f0f",
-            "on-surface-variant":"#5a5c5c","secondary":"#4e6300","tertiary":"#5c5b5b",
-            "on-tertiary-container":"#636262","surface":"#f6f6f6",
-            "on-primary-fixed-variant":"#616161","tertiary-container":"#ffffff",
-            "on-tertiary-fixed":"#515050","outline-variant":"#acadad",
-            "inverse-on-surface":"#9c9d9d","on-secondary-fixed-variant":"#4e6300",
-            "on-secondary":"#e1ff88","background":"#f6f6f6","on-background":"#2d2f2f",
-            "primary-fixed":"#ebebeb","tertiary-fixed-dim":"#f3f0ef"
-        },
-        fontFamily: {
-            "headline":["Inter","sans-serif"],
-            "body":["Manrope","sans-serif"],
-            "label":["Inter","sans-serif"]
-        },
-        borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"}
-    }}
-}};
-</script><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-surface text-on-surface font-body selection:bg-secondary-fixed selection:text-on-secondary-fixed">
@@ -225,6 +189,43 @@ document.addEventListener('DOMContentLoaded', () => {
     renderCart();
     updateCartBadge();
 });
+</script>
+<script>
+// Tailwind custom colors — va al final del body cuando el DOM ya está completo
+tailwind.config = {
+    darkMode: "class",
+    theme: { extend: {
+        colors: {
+            "error-container":"#f95630","error":"#b02500","surface-container":"#e7e8e8",
+            "on-secondary-fixed":"#354500","surface-tint":"#5b5b5b","outline":"#767777",
+            "surface-container-highest":"#dbdddd","secondary-container":"#c3f400",
+            "on-primary-container":"#575757","on-primary-fixed":"#444444",
+            "on-tertiary-fixed-variant":"#6e6d6d","surface-container-high":"#e1e3e3",
+            "primary-container":"#ebebeb","on-primary":"#f3f3f3",
+            "surface-container-lowest":"#ffffff","tertiary-dim":"#504f4f",
+            "secondary-fixed":"#c3f400","surface-variant":"#dbdddd","surface-dim":"#d3d5d5",
+            "surface-bright":"#f6f6f6","primary":"#5b5b5b","primary-fixed-dim":"#dddddd",
+            "inverse-primary":"#ffffff","on-error-container":"#520c00",
+            "on-secondary-container":"#455900","on-error":"#ffefec","primary-dim":"#4f4f4f",
+            "tertiary-fixed":"#ffffff","error-dim":"#b92902","secondary-fixed-dim":"#b7e500",
+            "on-tertiary":"#f5f2f1","secondary-dim":"#435600","on-surface":"#2d2f2f",
+            "surface-container-low":"#f0f1f1","inverse-surface":"#0c0f0f",
+            "on-surface-variant":"#5a5c5c","secondary":"#4e6300","tertiary":"#5c5b5b",
+            "on-tertiary-container":"#636262","surface":"#f6f6f6",
+            "on-primary-fixed-variant":"#616161","tertiary-container":"#ffffff",
+            "on-tertiary-fixed":"#515050","outline-variant":"#acadad",
+            "inverse-on-surface":"#9c9d9d","on-secondary-fixed-variant":"#4e6300",
+            "on-secondary":"#e1ff88","background":"#f6f6f6","on-background":"#2d2f2f",
+            "primary-fixed":"#ebebeb","tertiary-fixed-dim":"#f3f0ef"
+        },
+        fontFamily: {
+            "headline":["Inter","sans-serif"],
+            "body":["Manrope","sans-serif"],
+            "label":["Inter","sans-serif"]
+        },
+        borderRadius: {"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"}
+    }}
+};
 </script>
 </body>
 </html>
